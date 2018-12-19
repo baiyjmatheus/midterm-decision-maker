@@ -43,6 +43,36 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
+// Add new user to db
+app.post("/users", (req, res) => {
+  res.send("Send new user info to db");
+});
+
+// Submit new poll to db
+app.post("/polls", (req, res) => {
+  res.send("Send new poll to db")
+});
+
+// Render poll admin page
+app.get("/polls/:poll_id/admin", (req, res) => {
+  res.send("Poll page / Admin perspective");
+});
+
+// Update poll info
+app.put("/polls/:poll_id", (req ,res) => {
+  res.send("Update poll information");
+});
+
+// Render participant page
+app.get("/polls/:poll_id", (req, res) => {
+  res.send("Poll page / Participant perspective");
+});
+
+// Submit participant choices
+app.post("/polls/:poll_id", (req, res) => {
+  res.send("Participant submits his/her choices to db");
+});
+
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
