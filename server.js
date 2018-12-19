@@ -16,6 +16,7 @@ const knexLogger  = require('knex-logger');
 
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
+const pollsRoutes = require("./routes/polls");
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -37,6 +38,7 @@ app.use(express.static("public"));
 
 // Mount all resource routes
 app.use("/api/users", usersRoutes(knex));
+app.use("/polls", pollsRoutes(knex));
 
 // Home page
 app.get("/", (req, res) => {
@@ -46,31 +48,6 @@ app.get("/", (req, res) => {
 // Add new user to db
 app.post("/users", (req, res) => {
   res.send("Send new user info to db");
-});
-
-// Submit new poll to db
-app.post("/polls", (req, res) => {
-  res.send("Send new poll to db")
-});
-
-// Render poll admin page
-app.get("/polls/:poll_id/admin", (req, res) => {
-  res.send("Poll page / Admin perspective");
-});
-
-// Update poll info
-app.put("/polls/:poll_id", (req ,res) => {
-  res.send("Update poll information");
-});
-
-// Render participant page
-app.get("/polls/:poll_id", (req, res) => {
-  res.send("Poll page / Participant perspective");
-});
-
-// Submit participant choices
-app.post("/polls/:poll_id", (req, res) => {
-  res.send("Participant submits his/her choices to db");
 });
 
 app.listen(PORT, () => {
