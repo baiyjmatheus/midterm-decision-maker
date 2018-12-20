@@ -21,6 +21,14 @@ module.exports = (knex) => {
 
   // Render participant page
   router.get("/:poll_id", (req, res) => {
+    var data = knex('users_choices')
+    .join('options', 'users_choices.option_id', '=', 'options.id')
+    .join('polls', 'polls.id', '=', 'options.poll_id')
+    .select('rank', 'id')
+    .where('options.poll_id', '=', '2')
+    .then(function(result) {
+      console.log(result)
+    })
     res.send("Poll page / Participant perspective");
   });
 
