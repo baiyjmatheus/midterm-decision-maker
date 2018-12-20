@@ -21,7 +21,32 @@ module.exports = (knex) => {
 
   // Render participant page
   router.get("/:poll_id", (req, res) => {
-    res.send("Poll page / Participant perspective");
+    const pollId = req.params.poll_id;
+  
+    // Get polls.question and options for that poll
+    knex.select('polls.question', 'options.description')
+    .from('polls')
+    .innerJoin('options', 'polls.id', 'options.poll_id')
+    .where('polls.id', pollId)
+    .then((result) => {
+      let options = [];
+      let question = "";
+
+      question = result[0].question;
+      result.forEach((element) => {
+        options.push(element.description);
+      });
+
+      const templatedVars = {
+        question,
+        options
+      }
+
+      console.log(templatedVars);
+      // console.log(templatedVars);
+      res.render("voting-poll", templatedVars);
+    });
+
   });
 
   // Submit participant choices
