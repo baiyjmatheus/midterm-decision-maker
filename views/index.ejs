@@ -7,11 +7,57 @@
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
 
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
   </head>
 
   <body>
-    <h1>Hello World!</h1>
+    <%- include("partials/_header")%>
+
+    <section class="main-section">
+      <h1 class="main-text">Decision Maker</h1>
+      <button class="btn btn-primary btn-start">Find Out More</button>
+    </section>
+
+    <section class="product-description">
+      <div class="img-container">
+          <img class="img-fluid img-responsive img-poll" src="/images/step_1.png">
+      </div>
+      <div class="text-container">
+          <h3 class="description-title">Step 1. Ask</h3>
+          <p class="description-step">Decision-making can be as simple as asking a friend. Type your question, set its options and voilá. It's out there!</p>
+      </div>
+    </section>
+
+    <section class="product-description-right">
+      <div class="text-container">
+          <h3 class="description-title">Step 2. Share</h3>
+          <p class="description-step">Share your poll with whomever it concerns. Following the creation of a new poll, two links are provided: one just for you, and one for your voters.</p>
+      </div>
+      <div class="img-container">
+          <img class="img-fluid img-responsive img-poll" src="/images/step_2.png">
+      </div>
+    </section>
+
+    <section class="product-description">
+      <div class="img-container">
+          <img class="img-fluid img-responsive img-poll" src="/images/step_3.png">
+      </div>
+      <div class="text-container">
+          <h3 class="description-title">Step 3. Decide!</h3>
+          <p class="description-step">Once the poll has finished, let us do the rest. The data provided by you and your voters will be analyzed to produce a single answer to your query.</p>
+      </div>
+    </section>
+
+    <div class="get-started">
+      <button class="btn btn-success start">Get Started</button>
+    </div>
+
+
+  <%- include("partials/_footer") %>
   </body>
 </html>

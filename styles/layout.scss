@@ -1,7 +1,142 @@
 body {
-  background-color: #EEE;
 
   h1 {
     color: #244751;
+
   }
+
+  .main-section {
+    width: 100%;
+    height: 100vh;
+    background-image: url("/images/indexmain.jpg");
+    background-size: cover;
+    text-align: center;
+
+    .main-text {
+      color: white;
+      font-size: 10vw;
+      text-transform: uppercase;
+      font-weight: bold;
+      margin: 0;
+      padding-top: 30vh;
+      }
+
+    .btn-start {
+      background-color: #353866;
+      text-transform: uppercase;
+      border-radius: 20px;
+      font-weight: bold;
+      font-size: 2.5vw;
+      margin-top: 7%;
+      padding: 30px;
+      border: 0;
+      &:hover {
+        background-color: #e3dede;
+        color: #353866;
+      }
+    }
+  }
+
+  .product-description{
+    margin: 5% 10%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+
+    .img-container{
+      display: inline-block;
+      width: 40%;
+      margin: 0;
+
+      .img-poll{
+
+      }
+    }
+
+    .text-container{
+      display: inline-block;
+      width: 60%;
+      margin-left: 5%;
+      text-align: justify;
+      font-size: 2vw;
+
+      .description-title{
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: 4vw;
+      }
+    }
+  }
+
+  .product-description-right{
+    margin: 5% 10%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    .img-container{
+      display: inline-block;
+      width: 40%;
+      margin: 0;
+      padding-left: 5px;
+
+      .img-poll{
+        // width: 90%;
+        // height: 90%;
+        margin: 0;
+      }
+    }
+
+    .text-container{
+      display: inline-block;
+      width: 60%;
+      margin-right: 5%;
+      text-align: justify;
+      font-size: 2vw;
+
+
+      .description-title{
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: 4vw;
+      }
+    }
+  }
+
+  .get-started{
+    width: 100%;
+    height: 40vh;
+    background-image: url("/images/indexmain.jpg");
+    background-position: 35% 45%;
+    text-align: center;
+
+
+    .start{
+      margin-top: 11vh;
+      color: #000;
+      background-color: white;
+      text-transform: uppercase;
+      border-radius: 20px;
+      font-weight: bold;
+      font-size: 2.5vw;
+      padding: 30px;
+      border: 0;
+      &:hover {
+        background-color: #000;
+        color: #fff;
+      }
+    }
+  }
+
+  .page-footer{
+    margin: 5vh 0 5vh 0;
+    font-weight: bold;
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+  }
+
 }
