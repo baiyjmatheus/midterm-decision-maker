@@ -6,7 +6,7 @@ const router  = express.Router();
 module.exports = (knex) => {
   // Submit new poll to db
   router.post("/", (req, res) => {
-    res.send("Send new poll to db")  
+    res.send("Send new poll to db")
   });
 
   // Render poll admin page
@@ -26,8 +26,9 @@ module.exports = (knex) => {
 
   // Render participant page
   router.get("/:poll_id", (req, res) => {
+
     const pollId = req.params.poll_id;
-  
+
     // Get polls.question and options for that poll
     knex.select('polls.question', 'options.description', 'options.id')
     .from('polls')
@@ -56,6 +57,7 @@ module.exports = (knex) => {
       // console.log(templatedVars);
       res.render("voting-poll", templatedVars);
     });
+
   });
 
   // Submit participant choices
@@ -76,7 +78,7 @@ module.exports = (knex) => {
         console.log("sucessfully inserted to users_choices");
       });
     });
-    
+
 
     res.send("Thanks for voting");
   });
