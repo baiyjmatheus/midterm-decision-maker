@@ -26,6 +26,7 @@ module.exports = (knex) => {
 
   // Render participant page
   router.get("/:poll_id", (req, res) => {
+
     const pollId = req.params.poll_id;
   
     // Get polls.question and options for that poll
@@ -56,6 +57,7 @@ module.exports = (knex) => {
       // console.log(templatedVars);
       res.render("voting-poll", templatedVars);
     });
+
   });
 
   // Submit participant choices

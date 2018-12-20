@@ -50,8 +50,6 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-// Add new user to db
-
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
