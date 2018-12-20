@@ -6,54 +6,22 @@ const router  = express.Router();
 module.exports = (knex) => {
 
 	router.post('/', (req, res) => {
-		// var test = knex('users')
-		// 	.select('email')
-		// 	.where('')
-
-		// 	.then((result) => {
-		// 		console.log(result)
-		// 	})
-
-
-		// console.log(test)
-		console.log(req.body)
-
-		knex('users')
-			.insert({email: "ethena@ethena.com", name: 'ethena'})
-			.then(function(result) {
-				console.log(result)
+		let email = req.body.$email;
+		let name = req.body.$username;
+		knex.from('users')
+			.select('email')
+			.where('email', email)
+			.then((rows) => {
+				if (rows.length === 0) {
+					return knex('users').insert({email: email, name: name});
+				} else {
+					console.log("already exists");
+				}
 			})
-			.finally(() => {
-				knex.destroy()
+			.catch((err) => {
+				console.log(err)
 			})
-
 		})
 
 	return router;
 }
-
-		// $(".submitbutton").on("click", function() {
-		// 	var $username = $(".username")
-		// 	var $email = $(".email")
-		// 	$.ajax({
-		// 		url: '/users',
-		// 		type: 'POST',
-		// 		body: {
-		// 			$username: username,
-		// 			$email: email
-		// 		},
-		// 	success: function() {			
-		// 	}
-		// })
-
-//   router.get("/", (req, res) => {
-//     knex
-//       .select("*")
-//       .from("users")
-//       .then((results) => {
-//         res.json(results);
-//     });
-//   });
-
-//   return router;
-// }

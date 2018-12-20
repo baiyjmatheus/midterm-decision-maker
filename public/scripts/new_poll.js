@@ -1,16 +1,23 @@
 const submitUserData = function () {
-	$(".submitbutton").on("click", function() {
-		var $username = $(".username")
-		var $email = $(".email")
+	$(".submitbutton").on("click", function(e) {
+		e.preventDefault();
+		var $username = $(".username").val()
+		var $email = $(".email").val()
 		$.ajax({
 			url: '/users',
 			type: 'POST',
-			body: {
-				$username: username,
-				$email: email
+			data: {
+				$username,
+				$email
 			},
 			success: function() {
-				
+				console.log("SUCCESS")
 			}
 		})
 	})
+}
+
+
+$(document).ready(function() {
+	submitUserData()
+})
