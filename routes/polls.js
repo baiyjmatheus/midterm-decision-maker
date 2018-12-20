@@ -26,20 +26,59 @@ module.exports = (knex) => {
 
   // Render participant page
   router.get("/:poll_id", (req, res) => {
-    var data = knex('users_choices')
-    .join('options', 'users_choices.option_id', '=', 'options.id')
-    .join('polls', 'polls.id', '=', 'options.poll_id')
-    .select('rank', 'id')
-    .where('options.poll_id', '=', '2')
-    .then(function(result) {
-      console.log(result)
-    })
-    res.send("Poll page / Participant perspective");
+    const pollId = req.params.poll_id;
+  
+    // Get polls.question and options for that poll
+    knex.select('polls.question', 'options.description', 'options.id')
+    .from('polls')
+    .innerJoin('options', 'polls.id', 'options.poll_id')
+    .where('polls.id', pollId)
+    .then((result) => {
+      let options = [];
+      let question = "";
+
+      question = result[0].question;
+      result.forEach((element) => {
+        let option = {
+          id: element.id,
+          description: element.description
+        }
+        options.push(option);
+      });
+
+      const templatedVars = {
+        id: pollId,
+        question,
+        options
+      }
+
+      console.log(templatedVars);
+      // console.log(templatedVars);
+      res.render("voting-poll", templatedVars);
+    });
   });
 
   // Submit participant choices
   router.post("/:poll_id", (req, res) => {
-    res.send("Participant submits his/her choices to db");
+    // Set ranks for each option
+    const pollId = req.params.poll_id;
+    const {options} = req.body;
+    const ranks = [];
+    for (let i = 1; i <= options.length; i++) {
+      ranks.push(i);
+    }
+
+    // Sent user choices to database
+    ranks.forEach((rank, i) => {
+      knex('users_choices')
+      .insert({user_id: 2, option_id: options[i].id, rank: rank})
+      .then(() => {
+        console.log("sucessfully inserted to users_choices");
+      });
+    });
+    
+
+    res.send("Thanks for voting");
   });
 
   return router;

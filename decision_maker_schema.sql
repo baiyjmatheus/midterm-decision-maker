@@ -30,3 +30,10 @@ CREATE TABLE users_choices (
 	rank INTEGER NOT NULL
 );
 
+
+
+
+SELECT polls.question, options.description
+FROM polls
+JOIN options ON polls.id = options.poll_id
+WHERE polls.id = 1;
