@@ -74,7 +74,7 @@ module.exports = (knex) => {
     });
     
 
-    res.send("Participant submits his/her choices to db");
+    res.send("Thanks for voting");
   });
 
   return router;
