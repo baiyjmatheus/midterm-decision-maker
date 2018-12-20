@@ -17,6 +17,7 @@ module.exports = (knex) => {
 				} else {
 					console.log("already exists");
 				}
+				res.send("test")
 			})
 			.catch((err) => {
 				console.log(err)
