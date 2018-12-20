@@ -13,6 +13,11 @@ module.exports = (knex) => {
   router.get("/:poll_id/admin", (req, res) => {
     res.send("Poll page / Admin perspective");
   });
+  // New poll
+  router.get("/new", (req, res) => {
+    res.render("new_poll");
+  });
+
 
   // Update poll info
   router.put("/:poll_id", (req ,res) => {

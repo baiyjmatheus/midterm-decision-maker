@@ -1,4 +1,10 @@
+/* 
+this migration on up:
+adds users, polls, options and users_options tables
+on down:
+reverts table creations 
 
+*/
 exports.up = function(knex, Promise) {
  	return createUsersTable()
  		.then(createPollsTable)

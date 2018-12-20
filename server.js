@@ -46,9 +46,6 @@ app.get("/", (req, res) => {
 });
 
 // Add new user to db
-app.post("/users", (req, res) => {
-  res.send("Send new user info to db");
-});
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
