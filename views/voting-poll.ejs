@@ -20,7 +20,7 @@
 </head>
 <body>
 
-  <div class="userinfo">
+  <div class="wrapper">
     <form action="/users" method="POST">
       <div class="form-group emailbox">
         <label for="email">Email address:</label>
@@ -34,29 +34,19 @@
     </form>
   </div>
 
+  <!-- div#poll set display: none -->
+  <div id="poll" style="display: none;">
+    <h1><%= question %></h1>
 
-
-
-
-
-
-
-
-
-
-
-  <!--  Poll -->
-
-  <!-- <h1><%= question %></h1>
-
-  <form action="/polls/<%= id %>" method="POST">
-    <ul id="sortable">
-      <% options.forEach((option) => { %>
-        <li data-id="<%= option.id %>"class="ui-state-default"><%= option.description %></li>
-      <%  }) %>
-    </ul>
-    <button class="send-vote">Submit</button>
-  </form> -->
-
+    <form action="/polls/<%= id %>" method="POST">
+      <ul id="sortable">
+        <% options.forEach((option) => { %>
+          <li data-id="<%= option.id %>"class="ui-state-default"><%= option.description %></li>
+        <%  }) %>
+      </ul>
+      <button class="send-vote">Submit</button>
+    </form>    
+  </div>
+  
 </body>
 </html>

@@ -4,7 +4,6 @@ const express = require('express');
 const router  = express.Router();
 
 module.exports = (knex) => {
-
 	router.post('/', (req, res) => {
 		let email = req.body.$email;
 		let name = req.body.$username;
@@ -20,7 +19,7 @@ module.exports = (knex) => {
 					console.log("already exists");
 					req.session.id = rows.id;
 				}
-				res.send("test")
+				res.send("done");
 			})
 			.catch((err) => {
 				console.log(err)
