@@ -52,6 +52,7 @@ module.exports = (knex) => {
 
   // Submit participant choices
   router.post("/:poll_id", (req, res) => {
+    console.log(req.body);
     res.send("Participant submits his/her choices to db");
   });
 
