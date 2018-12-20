@@ -57,6 +57,7 @@ module.exports = (knex) => {
   // Submit participant choices
   router.post("/:poll_id", (req, res) => {
     // Set ranks for each option
+    const pollId = req.params.poll_id;
     const {options} = req.body;
     const ranks = [];
     for (let i = 1; i <= options.length; i++) {
@@ -64,12 +65,14 @@ module.exports = (knex) => {
     }
 
     // Sent user choices to database
-
-
+    ranks.forEach((rank, i) => {
+      knex('users_choices')
+      .insert({user_id: 2, option_id: options[i].id, rank: rank})
+      .then(() => {
+        console.log("sucessfully inserted to users_choices");
+      });
+    });
     
-
-
-
 
     res.send("Participant submits his/her choices to db");
   });
