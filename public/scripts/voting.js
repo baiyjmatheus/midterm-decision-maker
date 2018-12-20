@@ -5,7 +5,11 @@ $(document).ready(function() {
     e.preventDefault();
     var options = [];
     $("ul#sortable li").toArray().forEach((option) => {
-     options.push(option.textContent);
+      var newOption = {
+        id: $(option).data("id"),
+        description: $(option).text()
+      }
+      options.push(newOption);
     });
 
     // Send options to server

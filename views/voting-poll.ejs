@@ -24,7 +24,7 @@
   <form action="/polls/<%= id %>" method="POST">
     <ul id="sortable">
       <% options.forEach((option) => { %>
-        <li class="ui-state-default"><%= option %></li>
+        <li data-id="<%= option.id %>"class="ui-state-default"><%= option.description %></li>
       <%  }) %>
     </ul>
     <button class="send-vote">Submit</button>
