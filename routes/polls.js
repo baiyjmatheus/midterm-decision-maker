@@ -38,6 +38,7 @@ module.exports = (knex) => {
       });
 
       const templatedVars = {
+        id: pollId,
         question,
         options
       }
