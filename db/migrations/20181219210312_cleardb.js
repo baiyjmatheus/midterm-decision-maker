@@ -1,4 +1,4 @@
-
+// this migration clears sample db, reverts on down
 exports.up = function(knex, Promise) {
   return knex.schema.dropTable('users')
 };

@@ -37,7 +37,7 @@ app.use("/styles", sass({
 app.use(express.static("public"));
 
 // Mount all resource routes
-app.use("/api/users", usersRoutes(knex));
+app.use("/users", usersRoutes(knex));
 app.use("/polls", pollsRoutes(knex));
 
 // Home page
@@ -46,9 +46,6 @@ app.get("/", (req, res) => {
 });
 
 // Add new user to db
-app.post("/users", (req, res) => {
-  res.send("Send new user info to db");
-});
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
