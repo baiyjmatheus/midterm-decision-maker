@@ -110,21 +110,25 @@ module.exports = (knex) => {
   });
 
   // returns if the poll belongs to user
-function isCreator(userId, pollId) {
-  return new Promise((resolve, reject) => {
-    knex.select('creator_id')
-      .from('polls')
-      .where({'id': pollId})
-      .then((result) => {
-        if (result[0].creator_id === userId) {
-          resolve(true);
-        } else {
-          resolve(false);
-        }
-        reject();
-      });
-  });
-}
+  function isCreator(userId, pollId) {
+    return new Promise((resolve, reject) => {
+      knex.select('creator_id')
+        .from('polls')
+        .where({'id': pollId})
+        .then((result) => {
+          if (result[0].creator_id === userId) {
+            resolve(true);
+          } else {
+            resolve(false);
+          }
+          reject();
+        });
+    });
+  }
+
+  function bordaCount() {
+    
+  }
 
   return router;
 }
