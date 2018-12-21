@@ -6,7 +6,21 @@ const router  = express.Router();
 module.exports = (knex) => {
   // Submit new poll to db
   router.post("/", (req, res) => {
-    res.send("Send new poll to db")
+    let question = req.body.question;
+    let options = req.body.options;
+    let user_id = req.session.id[0];
+    console.log(user_id)
+    console.log(question, options)
+    knex('polls')
+    .returning('id')
+    .insert({question: question, type: 1, creator_id: user_id})
+    .then(function(newId) {
+      options.forEach((option) => {
+        knex('options')
+        .insert({description:option, poll_id: newId[0]})
+        .finally()
+      });
+    })
   });
 
   // Render poll admin page
