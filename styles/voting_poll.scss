@@ -1,0 +1,149 @@
+$baseColor: #2196f3;
+$baseFont: 'Helvetica', sans-serif;
+
+body{
+    margin: 0;
+    font-family: $baseFont;
+    text-transform: uppercase;
+    background-image: url("/images/bg.png");
+    background-size: cover;
+
+    .wrapper {
+        display: flex;
+        width: 30vw;
+        margin: 10% auto;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #ccc;
+        // border-radius: 20px;
+        padding: 10px 20px;
+        // box-shadow: -3px -3px 5px 0px rgba(0,0,0,0.75);
+        background-color: white;
+
+
+        div {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            margin-top: 5vh;
+
+            input{
+                width: 20vw;
+                align-self: flex-end;
+                border: none;
+                border-bottom: 1px solid #ccc;
+                // border-radius: 10px;
+                padding: 15px;
+                text-align: center;
+                box-sizing: border-box;
+                
+            }
+
+            
+        }
+        
+        .submitbutton {
+            margin-top: 7vh;
+            margin-bottom: 5vh;
+            width: 20vw;
+            padding: 15px;
+            color: #fff;
+            text-transform: uppercase;
+            font-weight: bold;
+            background-color: #353866;
+            // border-radius: 10px;
+            border: 1px solid #ccc;
+            &:hover{
+                background-color: #9EBEDE;
+            }
+        }
+
+
+
+    }
+
+    .hidden {
+        display:none;
+        
+        .poll-container{
+            display: flex;
+            margin: 5vh auto;
+            flex-direction: column;
+            flex-wrap: wrap;
+            align-items: center;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            width: 40vw;
+            background-color: white;
+
+            .poll-question {
+                display: inline-block;
+                padding: 10px;
+                text-align: center;
+                font-weight: 300;
+                // background-color: #2196f3;
+                margin: 0;
+                // color: #fff;
+                // box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12)
+            }
+             
+            form {
+                text-align: center;
+
+                .options-list {
+                    padding: 0;
+                    
+                
+                    .options-item {
+                        list-style: none;
+                        cursor: pointer;
+                        width: 25vw;
+                        margin: 15px;
+                        padding: 10px;
+                        border: 1px solid transparent;
+                        border-radius: 4px;
+                        text-align: left;
+                        text-transform: uppercase;
+                        color: #000000;
+                        // background-color: #ccc;
+                        &:hover{
+                            background-color: darken($baseColor, 10%)
+                        }
+
+
+                        
+                        i {
+                            margin-left: 10px;  
+                            margin-right: 40px;
+                        }
+                    }
+                }
+
+                .send-vote{
+                    width: 20vw;
+                    height: 10vh;
+                    margin-top: 1vh;
+                    margin-bottom: 4vh;
+                    text-transform: uppercase;
+                    border-radius: 4px;
+                    border: 1px solid transparent;
+                    cursor: pointer;
+                    color: #fff;
+                    background-color: #0F9D58;
+                    box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 3px 1px -2px rgba(0,0,0,0.12);
+                    &:hover{
+                        background-color: darken(#0F9D58, 5%)
+                    }
+
+                    i {
+                        margin-left: 20px;
+                        color: #fff;
+                    }
+                }
+            }
+        }
+    }
+}
