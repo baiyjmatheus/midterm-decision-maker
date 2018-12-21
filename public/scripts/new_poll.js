@@ -87,8 +87,9 @@ const submitPollData = function () {
 		})
 		.done(function(data) {
       const id = data;
-
-			console.log('data show', data)
+      if (data !== null) {
+        window.location = `/polls/${id}/admin`;
+      }
 		})
 	})
 }
