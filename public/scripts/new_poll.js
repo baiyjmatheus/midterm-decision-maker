@@ -10,7 +10,8 @@ const newOption = function () {
 	return newPollForm;
 }
 
-const updateOptionCount = function (button) {
+const updateOptionCount = function () {
+	
 		let optionsArr = $(".option-title").toArray()
 		let len = optionsArr.length
 		let increment = 1
@@ -31,7 +32,7 @@ const deleteOption = function () {
 	$('section.poll-form').on('click', ".delete-option", function(e) {
 		let target = $(this).parents('.option-box')
 		target.remove()
-		updateOptionCount($('section.poll-form'))
+		updateOptionCount()
 	})
 }
 
