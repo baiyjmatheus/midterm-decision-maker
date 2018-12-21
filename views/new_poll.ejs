@@ -13,6 +13,7 @@
 	    <script type="text/javascript" src="/scripts/new_poll.js"></script>
 	</head>
 	<body>
+    <div class="error"></div>
     <div class="userinfo">
 		  <form action="/users" method="POST">
         <div class="form-group emailbox">
@@ -26,9 +27,9 @@
         <button type="submit" class="btn btn-default submitbutton">Start!</button>
       </form>
     </div>
-    <form action="/polls" method="POST">
+    <form class="polls" action="/polls" method="POST">
       <section class="poll-form">
-        <div class="input-group mb-3">
+        <div class="input-group mb-3 question-box">
           <span class="input-group-text" id="inputGroup-sizing-default">Question</span>
           <input type="text" class="form-control question" placeholder="Please Ask Any Question" aria-label="" aria-describedby="basic-addon1">
         </div>
@@ -47,10 +48,10 @@
         </div>
       </div>
       </section>
-      <div class="input-group-append">
+      <div class="input-group-append add-box">
         <button class="btn btn-outline-secondary add-option" type="button">Add more options</button>
       </div>
-      <button class="btn submit-btn">Submit</button>
+      <a href="/" class="btn submit-btn">Submit</a>
     </form>
 	</body>
 </html>

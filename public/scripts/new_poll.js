@@ -1,5 +1,5 @@
 const newOption = function (increment) {
-	let newPollForm = 
+	let newPollForm =
 	`<div class="input-group mb-3 option-box">
   		<span class="input-group-text" id="inputGroup-sizing-default">Option ${increment}</span>
   			<input type="text" class="form-control option-input" placeholder="Option" aria-label="" aria-describedby="basic-addon1">
@@ -43,12 +43,15 @@ const submitUserData = function () {
 					$email
 				},
 				success: function() {
-					console.log("SUCCESS")
+					console.log("Successfully sent user data")
+          $error.empty();
 				}
 			})
 			.done(function(data) {
-				console.log(data)	
-			})
+				if (data === 'done') {
+        $(".userinfo").fadeOut(function() {
+          $(".polls").fadeIn();
+			}) }})
 		} else {
 			$error.text("Input fields cannot be blank.")
 		}
@@ -75,7 +78,7 @@ const submitPollData = function () {
 			}
 		})
 		.done(function(data) {
-			console.log(data)
+			console.log('data', data)
 		})
 	})
 }
