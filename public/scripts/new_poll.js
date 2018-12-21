@@ -78,7 +78,9 @@ const submitPollData = function () {
 			}
 		})
 		.done(function(data) {
-			console.log('data', data)
+      const id = data;
+
+			console.log('data show', data)
 		})
 	})
 }
