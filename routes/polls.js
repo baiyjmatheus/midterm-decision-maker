@@ -26,7 +26,7 @@ module.exports = (knex) => {
     });
   });
 
-  // Render poll admin page
+// Render poll admin page
   router.get("/:poll_id/admin", (req, res) => {
     const userId = req.session.id[0];
     const pollId = req.params.poll_id;
@@ -34,7 +34,7 @@ module.exports = (knex) => {
     let data = {};
     let scores = [];
     isCreator(userId, pollId).then((result) => {
-      if (!result) {
+      if (result) {
         getOptionsByPollId(pollId).then((options) => {
           descriptions = options;
         })
@@ -48,15 +48,12 @@ module.exports = (knex) => {
                 data[element.description] = element.rank;
               }
             });
-s
+
             //Get scores from data and push to data array
             descriptions.forEach((description) => {
               console.log(description);
               scores.push(data[description.description]);
             });
-
-            // console.log(descriptions);
-            // console.log(scores);
 
             const templatedVars = {
               descriptions,
@@ -72,7 +69,7 @@ s
 
     
   });
-
+  
   // New poll
   router.get("/new", (req, res) => {
     res.render("new_poll");
@@ -156,6 +153,43 @@ s
           }
           reject();
         });
+    });
+  }
+  //returns number of options of a poll
+  function getOptionsByPollId (pollId) {
+    return new Promise((resolve, reject) => {
+      knex.select('description')
+        .from('options')
+        .where('poll_id', pollId)
+        .then((result) => {
+          resolve(result)
+        });
+    })
+  }
+  //returns array of descriptions from options 
+  function getRanksByPollId (pollId) {
+    return new Promise((resolve, reject) => {
+      knex.select('options.description', 'users_choices.rank')
+        .from('options')
+        .innerJoin('users_choices', 'options.id', 'users_choices.option_id')
+        .innerJoin('polls', 'polls.id', 'options.poll_id')
+        .where('polls.id', pollId)
+        .then((result) => {
+          resolve(result)
+      })
+    })
+  }
+
+  // return number of ocurrences of a rank in a option
+  function getNumRanksInOption(rank, optionDesc) {
+    return new Promise((resolve, reject) => {
+      knex('options').count()
+      .innerJoin('users_choices', 'options.id', 'users_choices.option_id')
+      .where('users_choices.rank', rank)
+      .andWhere('options.description', optionDesc)
+      .then((result) => {
+        resolve(result);
+      });
     });
   }
 
