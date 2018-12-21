@@ -25,8 +25,23 @@ module.exports = (knex) => {
 
   // Render poll admin page
   router.get("/:poll_id/admin", (req, res) => {
-    res.send("Poll page / Admin perspective");
+    const pollId = req.params.poll_id;
+    const userId = req.session.id[0];
+
+    knex.select('creator_id')
+      .from('polls')
+      .where({'id': pollId})
+      .then((result) => {
+        if (result[0].creator_id === userId) {
+          res.render("admin_poll");
+        } else {
+          res.send("You don't have permission to this site");
+        }
+      });
+    
+
   });
+
   // New poll
   router.get("/new", (req, res) => {
     res.render("new_poll");
