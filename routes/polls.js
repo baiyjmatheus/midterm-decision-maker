@@ -6,13 +6,39 @@ const router  = express.Router();
 module.exports = (knex) => {
   // Submit new poll to db
   router.post("/", (req, res) => {
-    res.send("Send new poll to db")
+    let question = req.body.question;
+    let options = req.body.options;
+    let user_id = req.session.id[0];
+    let poll_id;
+    knex('polls')
+    .returning('id')
+    .insert({question: question, type: 1, creator_id: user_id})
+    .then(function(newId) {
+      poll_id = newId;
+      options.forEach((option) => {
+        knex('options')
+        .insert({description:option, poll_id: newId[0]})
+        .finally();
+      })
+    })
+    .then(() => {
+      res.send(poll_id);
+    });
   });
 
   // Render poll admin page
   router.get("/:poll_id/admin", (req, res) => {
-    res.send("Poll page / Admin perspective");
+    const userId = req.session.id[0];
+    const pollId = req.params.poll_id;
+    isCreator(userId, pollId).then((result) => {
+      if (result) {
+        res.render("admin_poll");
+      } else {
+        res.send("You don't have permission to acess this page");
+      }
+    });
   });
+
   // New poll
   router.get("/new", (req, res) => {
     res.render("new_poll");
@@ -82,6 +108,23 @@ module.exports = (knex) => {
 
     res.send("Thanks for voting");
   });
+
+  // returns if the poll belongs to user
+function isCreator(userId, pollId) {
+  return new Promise((resolve, reject) => {
+    knex.select('creator_id')
+      .from('polls')
+      .where({'id': pollId})
+      .then((result) => {
+        if (result[0].creator_id === userId) {
+          resolve(true);
+        } else {
+          resolve(false);
+        }
+        reject();
+      });
+  });
+}
 
   return router;
 }

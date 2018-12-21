@@ -1,7 +1,7 @@
 const newOption = function (increment) {
 	let newPollForm = `<div class="input-group mb-3 option-box">
   <span class="input-group-text" id="inputGroup-sizing-default">Option ${increment}</span>
-  <input type="text" class="form-control" placeholder="Option" aria-label="" aria-describedby="basic-addon1">
+  <input type="text" class="form-control option-input" placeholder="Option" aria-label="" aria-describedby="basic-addon1">
   <div class="input-group-append">
     <button class="btn btn-outline-secondary delete-option" type="button">Delete</button>
   </div>
@@ -29,16 +29,17 @@ const deleteOption = function () {
 const submitUserData = function () {
 	$(".submitbutton").on("click", function(e) {
 		e.preventDefault();
-		var username = $(".username").val()
-		var email = $(".email").val()
+		var $username = $(".username").val()
+		var $email = $(".email").val()
+		console.log($username, $email)
 		var $error = $(".error")
-		if (username && email) {
+		if ($username && $email) {
 			$.ajax({
 				url: '/users',
 				type: 'POST',
 				data: {
-					username,
-					email
+					$username,
+					$email
 				},
 				success: function() {
 					console.log("SUCCESS")
@@ -53,9 +54,35 @@ const submitUserData = function () {
 	})
 }
 
+const submitPollData = function () {
+	$('.submit-btn').on('click', function(e) {
+		e.preventDefault()
+		var options = []
+		$('.option-input').toArray().forEach((option) => {
+			options.push($(option).val())
+		})
+		let question = $('.question').val();
+		$.ajax({
+			url:'/polls',
+			type:'POST',
+			data: {
+				question,
+				options
+			},
+			success: function() {
+				console.log("successful post of new poll to /polls")
+			}
+		})
+		.done(function(data) {
+			console.log(data)
+		})
+	})
+}
+
 
 $(document).ready(function() {
 	submitUserData();
 	addOption();
 	deleteOption();
+	submitPollData();
 })
