@@ -1,0 +1,179 @@
+$baseColor: #353866;
+$supportColor: #9EBEDE;
+$baseFont: 'Helvetica', sans-serif;
+
+body{
+    margin: 0;
+    font-family: $baseFont;
+    text-transform: uppercase;
+    background-image: url("/images/bg.png");
+    background-size: cover;
+
+    .wrapper {
+        display: flex;
+        width: 25vw;
+        margin: 10% auto;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #ccc;
+        // border-radius: 20px;
+        // padding: 10px 20px;
+        // box-shadow: -3px -3px 5px 0px rgba(0,0,0,0.75);
+        background-color: white;
+
+
+        div {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            margin-top: 5vh;
+
+            input{
+                width: 20vw;
+                align-self: flex-end;
+                border: none;
+                border-bottom: 1px solid #ccc;
+                padding: 15px;
+                text-align: center;
+                box-sizing: border-box;
+                font-size: 100%;
+            }
+
+            
+        }
+        
+        .submitbutton {
+            margin-top: 7vh;
+            margin-bottom: 5vh;
+            width: 20vw;
+            height: 10vh;
+            padding: 15px;
+            color: #fff;
+            text-transform: uppercase;
+            font-weight: bold;
+            font-size: 100%;
+            background-color: $baseColor;
+            // border-radius: 10px;
+            border: 1px solid #ccc;
+            &:hover{
+                background-color: $supportColor;
+            }
+        }
+
+
+
+    }
+
+    .hidden {
+        display:none;
+        
+        .poll-container{
+            display: flex;
+            margin: 5vh auto;
+            flex-direction: column;
+            flex-wrap: wrap;
+            align-items: center;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            width: 40vw;
+            background-color: white;
+
+            .logo-container {
+                width: 80%;
+                height: auto;
+                display: flex;
+                flex-flow: row;
+                align-items: center;
+                margin-top: 8vh;
+                margin-bottom: 2vh;
+
+                .q {
+                    height: 6vw;
+                    width: auto;
+                }
+    
+                .poll-question {
+                    display: inline-block;
+                    // padding: 10px;
+                    text-align: center;
+                    font-weight: bolder;
+                    margin-top: 1vh; 
+                       
+                 }
+            }
+            
+
+            form {
+                text-align: center;
+
+                .options-list {
+                    padding: 0;
+                    
+                
+                    .options-item {
+                        list-style: none;
+                        font-size: 1.5vw;
+                        cursor: pointer;
+                        width: 25vw;
+                        margin: 15px;
+                        padding: 10px;
+                        border: 1px solid transparent;
+                        // border-radius: 4px;
+                        text-align: left;
+                        text-transform: uppercase;
+                        color: #000000;
+                        // background-color: #ccc;
+                        &:hover{
+                            background-color: darken($baseColor, 10%);
+                            color: #ccc;
+                        }
+
+
+                        
+                        i {
+                            margin-left: 10px;  
+                            margin-right: 40px;
+                        }
+                    }
+                }
+
+                .send-vote{
+                    width: 20vw;
+                    height: 10vh;
+                    margin-top: 4vh;
+                    margin-bottom: 8vh;
+                    text-transform: uppercase;
+                    font-weight: bold;
+                    font-size: 18px;
+                    border: 1px solid transparent;
+                    cursor: pointer;
+                    color: #fff;
+                    background-color: $baseColor;
+                    box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 3px 1px -2px rgba(0,0,0,0.12);
+                    &:hover{
+                        background-color: $supportColor;
+                    }
+
+                    i {
+                        margin-left: 20px;
+                        color: #fff;
+                    }
+                }
+            }
+        }
+    }
+
+    .thank-you{
+        width: 100%;
+        display: inline-block;
+        
+        text-align: center;
+        padding: 20px;
+        color: #fff;
+        font-size: 15vh;
+
+    }
+}

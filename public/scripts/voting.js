@@ -51,9 +51,9 @@ $(document).ready(function() {
     })
     .done(function(data) {
       $("body").fadeOut(function() {
-        $("body").html(`<h1>${data}</h1>`);
+        $("body").html(`<h1 class="thank-you">${data}</h1>`);
       });
-      $("body").fadeIn();
+      $("body").fadeIn("slow");
     });
   });
 
