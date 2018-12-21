@@ -1,4 +1,5 @@
-$baseColor: #2196f3;
+$baseColor: #353866;
+$supportColor: #9EBEDE;
 $baseFont: 'Helvetica', sans-serif;
 
 body{
@@ -10,14 +11,14 @@ body{
 
     .wrapper {
         display: flex;
-        width: 30vw;
+        width: 25vw;
         margin: 10% auto;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         border: 1px solid #ccc;
         // border-radius: 20px;
-        padding: 10px 20px;
+        // padding: 10px 20px;
         // box-shadow: -3px -3px 5px 0px rgba(0,0,0,0.75);
         background-color: white;
 
@@ -34,11 +35,10 @@ body{
                 align-self: flex-end;
                 border: none;
                 border-bottom: 1px solid #ccc;
-                // border-radius: 10px;
                 padding: 15px;
                 text-align: center;
                 box-sizing: border-box;
-                
+                font-size: 100%;
             }
 
             
@@ -48,15 +48,17 @@ body{
             margin-top: 7vh;
             margin-bottom: 5vh;
             width: 20vw;
+            height: 10vh;
             padding: 15px;
             color: #fff;
             text-transform: uppercase;
             font-weight: bold;
-            background-color: #353866;
+            font-size: 100%;
+            background-color: $baseColor;
             // border-radius: 10px;
             border: 1px solid #ccc;
             &:hover{
-                background-color: #9EBEDE;
+                background-color: $supportColor;
             }
         }
 
@@ -79,17 +81,31 @@ body{
             width: 40vw;
             background-color: white;
 
-            .poll-question {
-                display: inline-block;
-                padding: 10px;
-                text-align: center;
-                font-weight: 300;
-                // background-color: #2196f3;
-                margin: 0;
-                // color: #fff;
-                // box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12)
+            .logo-container {
+                width: 80%;
+                height: auto;
+                display: flex;
+                flex-flow: row;
+                align-items: center;
+                margin-top: 8vh;
+                margin-bottom: 2vh;
+
+                .q {
+                    height: 6vw;
+                    width: auto;
+                }
+    
+                .poll-question {
+                    display: inline-block;
+                    // padding: 10px;
+                    text-align: center;
+                    font-weight: bolder;
+                    margin-top: 1vh; 
+                       
+                 }
             }
-             
+            
+
             form {
                 text-align: center;
 
@@ -99,18 +115,20 @@ body{
                 
                     .options-item {
                         list-style: none;
+                        font-size: 1.5vw;
                         cursor: pointer;
                         width: 25vw;
                         margin: 15px;
                         padding: 10px;
                         border: 1px solid transparent;
-                        border-radius: 4px;
+                        // border-radius: 4px;
                         text-align: left;
                         text-transform: uppercase;
                         color: #000000;
                         // background-color: #ccc;
                         &:hover{
-                            background-color: darken($baseColor, 10%)
+                            background-color: darken($baseColor, 10%);
+                            color: #ccc;
                         }
 
 
@@ -125,17 +143,18 @@ body{
                 .send-vote{
                     width: 20vw;
                     height: 10vh;
-                    margin-top: 1vh;
-                    margin-bottom: 4vh;
+                    margin-top: 4vh;
+                    margin-bottom: 8vh;
                     text-transform: uppercase;
-                    border-radius: 4px;
+                    font-weight: bold;
+                    font-size: 18px;
                     border: 1px solid transparent;
                     cursor: pointer;
                     color: #fff;
-                    background-color: #0F9D58;
+                    background-color: $baseColor;
                     box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 3px 1px -2px rgba(0,0,0,0.12);
                     &:hover{
-                        background-color: darken(#0F9D58, 5%)
+                        background-color: $supportColor;
                     }
 
                     i {
@@ -145,5 +164,16 @@ body{
                 }
             }
         }
+    }
+
+    .thank-you{
+        width: 100%;
+        display: inline-block;
+        
+        text-align: center;
+        padding: 20px;
+        color: #fff;
+        font-size: 15vh;
+
     }
 }
