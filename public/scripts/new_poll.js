@@ -1,11 +1,12 @@
 const newOption = function (increment) {
-	let newPollForm = `<div class="input-group mb-3 option-box">
-  <span class="input-group-text" id="inputGroup-sizing-default">Option ${increment}</span>
-  <input type="text" class="form-control option-input" placeholder="Option" aria-label="" aria-describedby="basic-addon1">
-  <div class="input-group-append">
-    <button class="btn btn-outline-secondary delete-option" type="button">Delete</button>
-  </div>
-</div>`
+	let newPollForm = 
+	`<div class="input-group mb-3 option-box">
+  		<span class="input-group-text" id="inputGroup-sizing-default">Option ${increment}</span>
+  			<input type="text" class="form-control option-input" placeholder="Option" aria-label="" aria-describedby="basic-addon1">
+ 		<div class="input-group-append">
+    		<button class="btn btn-outline-secondary delete-option" type="button">Delete</button>
+  		</div>
+	</div>`
 	return newPollForm;
 }
 
