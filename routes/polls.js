@@ -9,18 +9,21 @@ module.exports = (knex) => {
     let question = req.body.question;
     let options = req.body.options;
     let user_id = req.session.id[0];
-    console.log(user_id)
-    console.log(question, options)
+    let poll_id;
     knex('polls')
     .returning('id')
     .insert({question: question, type: 1, creator_id: user_id})
     .then(function(newId) {
+      poll_id = newId;
       options.forEach((option) => {
         knex('options')
         .insert({description:option, poll_id: newId[0]})
-        .finally()
-      });
+        .finally();
+      })
     })
+    .then(() => {
+      res.send(poll_id);
+    });
   });
 
   // Render poll admin page
