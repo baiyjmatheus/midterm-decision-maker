@@ -1,7 +1,7 @@
-const newOption = function (increment) {
+const newOption = function () {
 	let newPollForm = 
 	`<div class="input-group mb-3 option-box">
-  		<span class="input-group-text" id="inputGroup-sizing-default">Option ${increment}</span>
+  		<span class="input-group-text option-title" id="inputGroup-sizing-default"></span>
   			<input type="text" class="form-control option-input" placeholder="Option" aria-label="" aria-describedby="basic-addon1">
  		<div class="input-group-append">
     		<button class="btn btn-outline-secondary delete-option" type="button">Delete</button>
@@ -10,20 +10,28 @@ const newOption = function (increment) {
 	return newPollForm;
 }
 
+const updateOptionCount = function (button) {
+		let optionsArr = $(".option-title").toArray()
+		let len = optionsArr.length
+		let increment = 1
+		optionsArr.forEach((option) => {
+			$(option).text(`Option ${increment}`)
+			increment++
+		})
+}
+
 const addOption = function () {
-	let increment = 3
 	$(".add-option").on('click', function(e) {
-		$(".poll-form").append(newOption(increment))
-		increment++
+		$(".poll-form").append(newOption())
+		updateOptionCount($(".option-title"))
 	})
 }
 
 const deleteOption = function () {
 	$('section.poll-form').on('click', ".delete-option", function(e) {
-		console.log(e)
 		let target = $(this).parents('.option-box')
 		target.remove()
-		console.log(target)
+		updateOptionCount($('section.poll-form'))
 	})
 }
 
@@ -32,7 +40,6 @@ const submitUserData = function () {
 		e.preventDefault();
 		var $username = $(".username").val()
 		var $email = $(".email").val()
-		console.log($username, $email)
 		var $error = $(".error")
 		if ($username && $email) {
 			$.ajax({
@@ -86,4 +93,5 @@ $(document).ready(function() {
 	addOption();
 	deleteOption();
 	submitPollData();
+
 })
