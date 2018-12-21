@@ -1,1 +1,5 @@
 <h1>Poll Admin Page</h1>
+
+<% for (var i = 0; i < descriptions.length; i++) { %>
+  <p><%= descriptions[i].description %> : <%= scores[i] %></p>
+<% } %>

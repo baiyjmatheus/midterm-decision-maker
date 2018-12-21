@@ -30,13 +30,47 @@ module.exports = (knex) => {
   router.get("/:poll_id/admin", (req, res) => {
     const userId = req.session.id[0];
     const pollId = req.params.poll_id;
+    let descriptions;
+    let data = {};
+    let scores = [];
     isCreator(userId, pollId).then((result) => {
-      if (result) {
-        res.render("admin_poll");
+      if (!result) {
+        getOptionsByPollId(pollId).then((options) => {
+          descriptions = options;
+        })
+        .then(() => {
+          getRanksByPollId(pollId).then((result) => {
+            // count scores
+            result.forEach((element) => {
+              if (data[element.description]) {
+                data[element.description] += element.rank;
+              } else {
+                data[element.description] = element.rank;
+              }
+            });
+s
+            //Get scores from data and push to data array
+            descriptions.forEach((description) => {
+              console.log(description);
+              scores.push(data[description.description]);
+            });
+
+            // console.log(descriptions);
+            // console.log(scores);
+
+            const templatedVars = {
+              descriptions,
+              scores
+            };
+            res.render("admin_poll", templatedVars);
+          });
+        })
       } else {
         res.send("You don't have permission to acess this page");
       }
     });
+
+    
   });
 
   // New poll
@@ -78,9 +112,6 @@ module.exports = (knex) => {
         question,
         options
       }
-
-      console.log(templatedVars);
-      // console.log(templatedVars);
       res.render("voting-poll", templatedVars);
     });
 
@@ -89,17 +120,19 @@ module.exports = (knex) => {
   // Submit participant choices
   router.post("/:poll_id", (req, res) => {
     // Set ranks for each option
+    const userId = req.session.id[0];
     const pollId = req.params.poll_id;
     const {options} = req.body;
     const ranks = [];
-    for (let i = 1; i <= options.length; i++) {
+
+    for (let i = options.length; i >= 1; i--) {
       ranks.push(i);
     }
 
     // Sent user choices to database
     ranks.forEach((rank, i) => {
       knex('users_choices')
-      .insert({user_id: 2, option_id: options[i].id, rank: rank})
+      .insert({user_id: userId, option_id: options[i].id, rank: rank})
       .then(() => {
         console.log("sucessfully inserted to users_choices");
       });
@@ -126,9 +159,32 @@ module.exports = (knex) => {
     });
   }
 
-  function bordaCount() {
-    
+  // Descript, ranks
+  function getRanksByPollId (pollId) {
+    return new Promise((resolve, reject) => {
+      knex.select('options.description', 'users_choices.rank')
+        .from('options')
+        .innerJoin('users_choices', 'options.id', 'users_choices.option_id')
+        .innerJoin('polls', 'polls.id', 'options.poll_id')
+        .where('polls.id', pollId)
+        .then((result) => {
+          resolve(result)
+      })
+    })
   }
+
+  // get options counter by poll
+  function getOptionsByPollId (pollId) {
+    return new Promise((resolve, reject) => {
+      knex.select('description')
+        .from('options')
+        .where('poll_id', pollId)
+        .then((result) => {
+          resolve(result)
+        });
+    })
+  }
+
 
   return router;
 }

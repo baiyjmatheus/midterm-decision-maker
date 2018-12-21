@@ -37,7 +37,6 @@ $(document).ready(function() {
       }
       options.push(newOption);
     });
-
     // Send options to server
     $.ajax({
       // Hardcoded URL for now
