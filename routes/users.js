@@ -26,7 +26,7 @@ module.exports = (knex) => {
 					req.session.id = rows[0].id;
 					res.send("done");
 				}
-				
+
 			})
 			.catch((err) => {
 				console.log(err)
