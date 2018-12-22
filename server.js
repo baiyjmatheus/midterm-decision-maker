@@ -1,12 +1,6 @@
 "use strict";
 
 require('dotenv').config();
-var data = {
-  from: 'finest-devs@hotmail.com',
-  to: 'baiyj.matheus@gmail.com',
-  subject: 'Hello',
-  text: 'Testing some Mailgun awesomeness! again'
-};
 
 const PORT        = process.env.PORT || 8080;
 const ENV         = process.env.ENV || "development";
@@ -20,8 +14,6 @@ const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
 const cookieSession = require("cookie-session");
-const mailgunConfig = require('./mailgunConfig');
-const mailgun 	  = require('mailgun-js')({apiKey: mailgunConfig.api_key, domain: mailgunConfig.domain})
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
 const pollsRoutes = require("./routes/polls");

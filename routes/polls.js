@@ -1,7 +1,8 @@
 "use strict";
-
+const mailgunConfig = require('./mailgunConfig');
 const express = require('express');
 const router  = express.Router();
+const mailgun = require('mailgun-js')({apiKey: mailgunConfig.api_key, domain: mailgunConfig.domain});
 
 module.exports = (knex) => {
   // Submit new poll to db
@@ -81,9 +82,27 @@ module.exports = (knex) => {
 
   });
 
-  // send email from admin page
+  // send email from admin page to admin
   router.post('/:poll_id/admin', (req, res) => {
-    res.send("post?")
+    let question = req.body.question;
+    let descriptionsOptions = req.body.descriptionsOptions
+    let pollId = req.body.pollId
+    let emailMsg = "";
+    for (let option in descriptionsOptions) {
+      emailMsg += "\n" + option + ": " + descriptionsOptions[option] + " points" + "\n"
+    }
+    getEmailFromPollId(pollId).then((email) => {
+      var data = {
+        from: 'finest-devs@hotmail.com',
+        to: email[0].email,
+        subject: `Results to your question: ${question}`,
+        text: `The votes are in, here are the final scores to your question: ${question} \n
+          ${emailMsg}`
+      };
+      mailgun.messages().send(data, function (error, body) {
+        console.log(body);
+      });
+    })
   })
   
   // New poll
@@ -193,6 +212,18 @@ module.exports = (knex) => {
         .where('polls.id', pollId)
         .then((result) => {
           resolve(result);
+      });
+    });
+  }
+
+  function getEmailFromPollId (pollId) {
+    return new Promise((resolve, reject) => {
+      knex.select('users.email')
+      .from('users')
+      .innerJoin('polls', 'polls.creator_id', 'users.id')
+      .where('polls.id', pollId)
+      .then((result) => {
+        resolve(result);
       });
     });
   }
