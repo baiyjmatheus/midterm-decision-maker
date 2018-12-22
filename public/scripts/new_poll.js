@@ -24,7 +24,7 @@ const updateOptionCount = function () {
 const addOption = function () {
 	$(".add-option").on('click', function(e) {
 		$(".poll-form").append(newOption())
-		updateOptionCount($(".option-title"))
+		updateOptionCount()
 	})
 }
 
