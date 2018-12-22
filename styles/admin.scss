@@ -1,7 +1,31 @@
-.result-bar {
-  display: block;
-  type-content: center;
-  width: 50%;
+body {
+  font-family: "Helvetica", sans-serif;
+  text-transform: uppercase;
+  background: url("/images/bg.png") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
 }
+
+body .result {
+  text-align: center;
+  color: white;
+  font-size: 5vw;
+  margin-top: 7%;
+}
+
+
+
+body #wrapper {
+  display: flex;
+  width: 60% !important;
+  height: 40% !important;
+  margin: 0 auto;
+  background-color: white;
+}
+
 
 
