@@ -74,20 +74,26 @@ const submitPollData = function () {
 	$('.submit-btn').on('click', function(e) {
 		e.preventDefault()
     var $question = $(".question").val()
-    var $options = $(".option-input").val()
-    var $error = $(".error")
+		var $options = $(".option-input").val()
+		var $error = $(".error")
     if ($options && $question) {
 		var options = []
 		$('.option-input').toArray().forEach((option) => {
 			options.push($(option).val())
 		})
-		let question = $('.question').val();
+		// Use class info for option info input fields
+		var info = []
+		$('.info').toArray().forEach((info) => {
+			info.push($(info).val())
+		})
+		var question = $('.question').val();
 		$.ajax({
 			url:'/polls',
 			type:'POST',
 			data: {
 				question,
-				options
+				options,
+				info
 			},
 			success: function() {
 				console.log("successful post of new poll to /polls")
