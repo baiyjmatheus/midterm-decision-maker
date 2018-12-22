@@ -94,10 +94,28 @@ const submitPollData = function () {
 }
 
 
+
+const showDeleteButtons = function () {
+	$(document).on('click', '.delete-option, .add-option', function() {
+		var n = $('.delete-option').length;
+		console.log(n);
+		if (n < 3) {
+			$('.delete-option').hide();
+		} else {
+			$('.delete-option').show();
+		}
+	})
+}
+
+
+
+
+
 $(document).ready(function() {
 	submitUserData();
 	addOption();
 	deleteOption();
 	submitPollData();
+	showDeleteButtons();
 
 })
