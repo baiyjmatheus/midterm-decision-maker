@@ -1,9 +1,10 @@
 $baseColor: #353866;
 $supportColor: #9EBEDE;
 $baseFont: 'Helvetica', sans-serif;
+$break-small: 320px; 
 
-body{
 
+body {
   margin: 0;
   font-family: $baseFont;
   text-transform: uppercase;
@@ -11,15 +12,39 @@ body{
   background-size: cover;
 }
 
-.userinfo {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: left;
-    flex-direction: column;
-    font-size: 5vw;
-    margin: 0;
 
+ .userinfo {
+  display: flex;
+  width: 25vw;
+  margin: 10% auto;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #ccc;
+  // border-radius: 20px;
+  // padding: 10px 20px;
+  // box-shadow: -3px -3px 5px 0px rgba(0,0,0,0.75);
+  background-color: white;
+
+
+  div {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      margin-top: 5vh;
+
+      input{
+          width: 20vw;
+          align-self: flex-end;
+          border: none;
+          border-bottom: 1px solid #ccc;
+          padding: 15px;
+          text-align: center;
+          box-sizing: border-box;
+          // font-size: 100%;
+      }
+  }
   .submitbutton {
       margin-top: 7vh;
       margin-bottom: 5vh;
@@ -36,18 +61,123 @@ body{
       &:hover{
           background-color: $supportColor;
       }
-
   }
- }
+}
 
 
 
 
+.polls {
+  display:none;
+  text-align: center;
 
-// .polls {
-//   display:none;
-// }
+  .poll-form{
+            display: flex;
+            margin: 5vh auto;
+            flex-direction: column;
+            flex-wrap: wrap;
+            align-items: center;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            // box-sizing: border-box;
+            width: 40%;
+            background-color: white;
+            text-align: center;
 
-// .submit-btn {
-//   color: black;
-// }
+            .question-box {
+              font-weight: bold;
+              width: 25vw;  
+              text-align: center;
+              padding: 20px 0;
+              
+              .new-poll-question{
+                font-size: 1.5vw;
+                font-weight: bold;
+              }
+
+              .question {
+                margin-top: 20px;
+              }
+
+            }
+
+            .option-box {
+              display: flex;
+              flex-direction: row;
+              width: 25vw;
+              margin: 20px;
+              align-items: center;
+              font-weight: bold;
+              justify-content: space-between;
+              
+
+              span {
+                display: inline-block;
+                margin-right: 10px;
+              }
+
+              .option-input {
+                width: 15vw;
+              }
+
+              .option-exl{
+                width: 20vw;
+              }
+            }
+
+            .delete-option {
+              background-color: $baseColor;
+              color: #fff;
+              margin-left: 10px;
+              border-radius: 0;
+            }
+  }
+
+  .add-box {
+    width: 40vw;
+    margin: 10px auto;
+    text-align: center;
+
+
+    .add-option {
+      border-radius: 50%;
+      background-color: $supportColor;
+      width: 50px;
+      height: 50px;
+      &:hover {
+        background-color: $baseColor;
+      }
+
+      i {
+        color: #fff;
+      }
+    }
+    
+  }
+}
+
+  .submit-btn {
+    background-color: $baseColor;
+    color: #fff;
+    width: 20vw;
+    height: 10vh;
+    margin: 10px auto;
+    border-radius: 0;
+    border: 0;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 18px;
+    &:hover{
+      background-color: $supportColor;
+    }
+
+    i {
+      color: #fff;
+      margin-left: 10px;
+    }
+  }
+
+  
+
+
+
