@@ -14,7 +14,6 @@ const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
 const cookieSession = require("cookie-session");
-
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
 const pollsRoutes = require("./routes/polls");
@@ -41,6 +40,9 @@ app.use("/styles", sass({
 }));
 app.use(express.static("public"));
 
+// mailgun.messages().send(data, function (error, body) {
+//   console.log(body);
+// });
 // Mount all resource routes
 app.use("/users", usersRoutes(knex));
 app.use("/polls", pollsRoutes(knex));

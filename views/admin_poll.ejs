@@ -29,7 +29,12 @@
   </section>
   <canvas id="myChart" width="400" height="400"></canvas>
 
-
+  </section>
+  <section class="send-email">
+    <form action="/polls/<%= pollId %>/admin" method="POST">
+      <button class="send-email-btn" data-pollId="<%= pollId %>">Send Email</button>
+    </form>
+  </section>
 
 <script>
     var ctx = $("#myChart");
@@ -76,5 +81,6 @@
     }
 });
 </script>
+
 </body>
 </html>
