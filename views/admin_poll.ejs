@@ -1,1 +1,80 @@
-<h1>Poll Admin Page</h1>
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Poll Admin Page</title>
+      <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css"/>
+      <link rel="stylesheet" href="/vendor/border-box.css" type="text/css"/>
+      <link rel="stylesheet" href="/styles/admin.css" type="text/css"/>
+      <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+      <script type="text/javascript" src="/scripts/app.js"></script>
+      <script type="text/javascript" src="/scripts/admin.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+
+
+  </head>
+<body>
+  <section class="value" style="display:none;">
+      <% var descriptions_arry = []; %>
+      <% var scores_arry = []; %>
+      <% for (var i = 0; i < descriptions.length; i++) { %>
+      <% descriptions_arry.push(descriptions[i]) %>
+      <% } %>
+      <% for (var j = 0; j < scores.length; j++) { %>
+      <% scores_arry.push(scores[j]) %>
+      <% } %>
+    <div class="question"><%= question %></div>
+    <div class="descriptions"><%= descriptions_arry %></div>
+    <div class="scores"><%= scores_arry %></div>
+  </section>
+  <canvas id="myChart" width="400" height="400"></canvas>
+
+
+
+<script>
+    var ctx = $("#myChart");
+    var descriptions_arry = $(".descriptions").text().split(",");
+    var scores_arry = $(".scores").text().split(",");
+    var myChart = new Chart(ctx, {
+    type: 'horizontalBar',
+    data: {
+        labels: descriptions_arry,
+        datasets: [{
+            label: 'Score',
+            data: scores_arry,
+            backgroundColor: [
+                // 'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                // 'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                // 'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                // 'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+      title: {
+            display: true,
+            text: $(".question").text()
+        },
+        scales: {
+            xAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+</script>
+</body>
+</html>

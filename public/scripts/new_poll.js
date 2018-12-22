@@ -24,7 +24,7 @@ const updateOptionCount = function () {
 const addOption = function () {
 	$(".add-option").on('click', function(e) {
 		$(".poll-form").append(newOption())
-		updateOptionCount($(".option-title"))
+		updateOptionCount()
 	})
 }
 
@@ -42,7 +42,11 @@ const submitUserData = function () {
 		var $username = $(".username").val()
 		var $email = $(".email").val()
 		var $error = $(".error")
-		if ($username && $email) {
+    var email_regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
+    if (!email_regex.test($email)) {
+      $error.text("Email is not valid")
+    }
+		else if ($username && $email) {
 			$.ajax({
 				url: '/users',
 				type: 'POST',
@@ -69,6 +73,10 @@ const submitUserData = function () {
 const submitPollData = function () {
 	$('.submit-btn').on('click', function(e) {
 		e.preventDefault()
+    var $question = $(".question").val()
+    var $options = $(".option-input").val()
+    var $error = $(".error")
+    if ($options && $question) {
 		var options = []
 		$('.option-input').toArray().forEach((option) => {
 			options.push($(option).val())
@@ -83,13 +91,18 @@ const submitPollData = function () {
 			},
 			success: function() {
 				console.log("successful post of new poll to /polls")
+        $error.empty();
 			}
 		})
 		.done(function(data) {
       const id = data;
-
-			console.log('data show', data)
+      if (data !== null) {
+        window.location = `/polls/${id}/admin`;
+      }
 		})
+  } else {
+      $error.text("Input fields cannot be blank.")
+    }
 	})
 }
 
