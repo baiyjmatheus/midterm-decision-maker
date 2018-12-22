@@ -41,6 +41,7 @@ const submitUserData = function () {
 		e.preventDefault();
 		var $username = $(".username").val()
 		var $email = $(".email").val()
+		console.log($email)
 		var $error = $(".error")
 		if ($username && $email) {
 			$.ajax({
