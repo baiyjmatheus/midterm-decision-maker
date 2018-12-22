@@ -8,7 +8,8 @@ module.exports = (knex) => {
   router.post("/", (req, res) => {
     let question = req.body.question;
     let options = req.body.options;
-    let user_id = req.session.id[0];
+    let user_id = req.session.id;
+    console.log(user_id)
     let poll_id;
     knex('polls')
     .returning('id')
@@ -28,7 +29,7 @@ module.exports = (knex) => {
 
 // Render poll admin page
   router.get("/:poll_id/admin", (req, res) => {
-    const userId = req.session.id[0];
+    const userId = req.session.id;
     const pollId = req.params.poll_id;
     let descriptions;
     let data = {};
