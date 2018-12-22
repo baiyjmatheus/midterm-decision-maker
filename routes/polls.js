@@ -60,6 +60,7 @@ module.exports = (knex) => {
               descriptions,
               scores
             };
+            console.log(templatedVars)
             res.render("admin_poll", templatedVars);
           });
         })
