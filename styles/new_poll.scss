@@ -1,14 +1,17 @@
 $baseColor: #353866;
 $supportColor: #9EBEDE;
 $baseFont: 'Helvetica', sans-serif;
-$break-small: 320px; 
+$break-small: 320px;
 
 
 body {
   margin: 0;
   font-family: $baseFont;
   text-transform: uppercase;
-  background-image: url("/images/bg.png");
+  background: url("/images/bg.png") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
   background-size: cover;
 }
 
@@ -86,10 +89,10 @@ body {
 
             .question-box {
               font-weight: bold;
-              width: 25vw;  
+              width: 25vw;
               text-align: center;
               padding: 20px 0;
-              
+
               .new-poll-question{
                 font-size: 1.5vw;
                 font-weight: bold;
@@ -109,7 +112,7 @@ body {
               align-items: center;
               font-weight: bold;
               justify-content: space-between;
-              
+
 
               span {
                 display: inline-block;
@@ -153,7 +156,7 @@ body {
         color: #fff;
       }
     }
-    
+
    }
 }
 
@@ -178,7 +181,7 @@ body {
     }
   }
 
-  
+
 
 
 

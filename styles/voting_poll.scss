@@ -6,7 +6,10 @@ body{
     margin: 0;
     font-family: $baseFont;
     text-transform: uppercase;
-    background-image: url("/images/bg.png");
+    background: url("/images/bg.png") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
     background-size: cover;
 
     .wrapper {
@@ -38,9 +41,9 @@ body{
 
             }
 
-            
+
         }
-        
+
         .submitbutton {
             margin-top: 7vh;
             margin-bottom: 5vh;
@@ -65,7 +68,7 @@ body{
 
     .hidden {
         display:none;
-        
+
         .poll-container{
             display: flex;
             margin: 5vh auto;
@@ -91,25 +94,25 @@ body{
                     height: 6vw;
                     width: auto;
                 }
-    
+
                 .poll-question {
                     display: inline-block;
                     // padding: 10px;
                     text-align: center;
                     font-weight: bolder;
-                    margin-top: 1vh; 
-                       
+                    margin-top: 1vh;
+
                  }
             }
-            
+
 
             form {
                 text-align: center;
 
                 .options-list {
                     padding: 0;
-                    
-                
+
+
                     .options-item {
                         list-style: none;
                         font-size: 1.5vw;
@@ -129,9 +132,9 @@ body{
                         }
 
 
-                        
+
                         i {
-                            margin-left: 10px;  
+                            margin-left: 10px;
                             margin-right: 40px;
                         }
                     }
@@ -166,7 +169,7 @@ body{
     .thank-you{
         width: 100%;
         display: inline-block;
-        
+
         text-align: center;
         padding: 20px;
         color: #fff;
