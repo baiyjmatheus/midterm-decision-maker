@@ -8,7 +8,8 @@ module.exports = (knex) => {
   router.post("/", (req, res) => {
     let question = req.body.question;
     let options = req.body.options;
-    let user_id = req.session.id[0];
+    let user_id = req.session.id;
+    console.log(user_id)
     let poll_id;
     knex('polls')
     .returning('id')
@@ -28,15 +29,21 @@ module.exports = (knex) => {
 
 // Render poll admin page
   router.get("/:poll_id/admin", (req, res) => {
-    const userId = req.session.id[0];
+    const userId = req.session.id;
     const pollId = req.params.poll_id;
-    let descriptions;
+    let descriptions = [];
     let data = {};
     let scores = [];
-    isCreator(userId, pollId).then((result) => {
-      if (result) {
+    let question = "";
+    isCreator(userId, pollId).then((creator) => {
+      if (creator) {
         getOptionsByPollId(pollId).then((options) => {
-          descriptions = options;
+          // get descriptions
+          options.forEach((element) => {
+            descriptions.push(element.description);
+          });
+          // get poll question
+          question = options[0].question
         })
         .then(() => {
           getRanksByPollId(pollId).then((result) => {
@@ -50,15 +57,23 @@ module.exports = (knex) => {
             });
 
             //Get scores from data and push to data array
-            descriptions.forEach((description) => {
-              console.log(description);
-              scores.push(data[description.description]);
+            descriptions.forEach((item) => {
+              if (!data[item.description]) {
+                scores.push(0);  
+              } else {
+                scores.push(data[item.description]);
+              }
             });
 
+            // vars to use um EJS template
             const templatedVars = {
               descriptions,
-              scores
+              scores,
+              question
             };
+
+            console.log(templatedVars);
+            
             res.render("admin_poll", templatedVars);
           });
         })
@@ -158,9 +173,10 @@ module.exports = (knex) => {
   //returns number of options of a poll
   function getOptionsByPollId (pollId) {
     return new Promise((resolve, reject) => {
-      knex.select('description')
+      knex.select('options.description', 'polls.question')
         .from('options')
         .where('poll_id', pollId)
+        .innerJoin('polls', 'polls.id', 'options.poll_id')
         .then((result) => {
           resolve(result)
         });
@@ -175,49 +191,49 @@ module.exports = (knex) => {
         .innerJoin('polls', 'polls.id', 'options.poll_id')
         .where('polls.id', pollId)
         .then((result) => {
-          resolve(result)
-      })
-    })
-  }
-
-  // return number of ocurrences of a rank in a option
-  function getNumRanksInOption(rank, optionDesc) {
-    return new Promise((resolve, reject) => {
-      knex('options').count()
-      .innerJoin('users_choices', 'options.id', 'users_choices.option_id')
-      .where('users_choices.rank', rank)
-      .andWhere('options.description', optionDesc)
-      .then((result) => {
-        resolve(result);
+          resolve(result);
       });
     });
   }
 
-  // Descript, ranks
-  function getRanksByPollId (pollId) {
-    return new Promise((resolve, reject) => {
-      knex.select('options.description', 'users_choices.rank')
-        .from('options')
-        .innerJoin('users_choices', 'options.id', 'users_choices.option_id')
-        .innerJoin('polls', 'polls.id', 'options.poll_id')
-        .where('polls.id', pollId)
-        .then((result) => {
-          resolve(result)
-      })
-    })
-  }
+  // return number of ocurrences of a rank in a option
+  // function getNumRanksInOption(rank, optionDesc) {
+  //   return new Promise((resolve, reject) => {
+  //     knex('options').count()
+  //     .innerJoin('users_choices', 'options.id', 'users_choices.option_id')
+  //     .where('users_choices.rank', rank)
+  //     .andWhere('options.description', optionDesc)
+  //     .then((result) => {
+  //       resolve(result);
+  //     });
+  //   });
+  // }
 
-  // get options counter by poll
-  function getOptionsByPollId (pollId) {
-    return new Promise((resolve, reject) => {
-      knex.select('description')
-        .from('options')
-        .where('poll_id', pollId)
-        .then((result) => {
-          resolve(result)
-        });
-    })
-  }
+  // // Descript, ranks
+  // function getRanksByPollId (pollId) {
+  //   return new Promise((resolve, reject) => {
+  //     knex.select('options.description', 'users_choices.rank', 'polls.question')
+  //       .from('options')
+  //       .innerJoin('users_choices', 'options.id', 'users_choices.option_id')
+  //       .innerJoin('polls', 'polls.id', 'options.poll_id')
+  //       .where('polls.id', pollId)
+  //       .then((result) => {
+  //         resolve(result)
+  //     })
+  //   })
+  // }
+
+  // // get options counter by poll
+  // function getOptionsByPollId (pollId) {
+  //   return new Promise((resolve, reject) => {
+  //     knex.select('description')
+  //       .from('options')
+  //       .where('poll_id', pollId)
+  //       .then((result) => {
+  //         resolve(result)
+  //       });
+  //   })
+  // }
 
 
   return router;

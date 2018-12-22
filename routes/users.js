@@ -11,7 +11,7 @@ module.exports = (knex) => {
 			.from('users')
 			.where('email', email)
 			.then((rows) => {
-				console.log(rows)
+				// console.log(rows)
 				if (rows.length === 0) {
 					knex('users')
 					.returning('id')
@@ -23,7 +23,9 @@ module.exports = (knex) => {
 					});
 				} else {
 					console.log("already exists");
+					// console.log(rows[0].id)
 					req.session.id = rows[0].id;
+					// console.log(req.session.id)
 					res.send("done");
 				}
 
