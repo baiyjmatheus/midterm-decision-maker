@@ -55,14 +55,10 @@ module.exports = (knex) => {
                 data[element.description] = element.rank;
               }
             });
-
+        
             //Get scores from data and push to data array
-            descriptions.forEach((item) => {
-              if (!data[item.description]) {
-                scores.push(0);  
-              } else {
-                scores.push(data[item.description]);
-              }
+            descriptions.forEach((description) => {
+                scores.push(data[description]);
             });
 
             // vars to use um EJS template
