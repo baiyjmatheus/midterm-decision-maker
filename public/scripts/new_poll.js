@@ -1,4 +1,4 @@
-const newOption = function () {
+const newOptionDiv = function () {
 	let newPollForm =
 	`<div class="input-group mb-3 option-box">
   		<span class="input-group-text option-title" id="inputGroup-sizing-default"></span>
@@ -23,7 +23,7 @@ const updateOptionCount = function () {
 
 const addOption = function () {
 	$(".add-option").on('click', function(e) {
-		$(".poll-form").append(newOption())
+		$(".poll-form").append(newOptionDiv())
 		updateOptionCount()
 	})
 }

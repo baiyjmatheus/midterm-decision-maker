@@ -8,7 +8,21 @@ module.exports = (knex) => {
   router.post("/", (req, res) => {
     let question = req.body.question;
     let options = req.body.options;
-    let user_id = req.session.id[0];
+    let email = "d@d"
+    let user_id;
+    if (req.session.id[0]) {
+      let user_id = req.session.id[0];
+          console.log("userid from req.sessions", user_id)
+    } else {
+              knex('users')
+                      .select('users.id')
+                      .where('email', email)
+                      .then((result) => {
+                        console.log('result of users select:', result)
+                        user_id = result[0];
+                                  console.log("userid from req.sessions", user_id) 
+                      })
+    }
     let poll_id;
     knex('polls')
     .returning('id')
@@ -17,7 +31,7 @@ module.exports = (knex) => {
       poll_id = newId;
       options.forEach((option) => {
         knex('options')
-        .insert({description:option, poll_id: newId[0]})
+        .insert({description: option, poll_id: newId[0]})
         .finally();
       })
     })
@@ -30,6 +44,7 @@ module.exports = (knex) => {
   router.get("/:poll_id/admin", (req, res) => {
     const userId = req.session.id[0];
     const pollId = req.params.poll_id;
+    console.log(req.session.id, userId, pollId)
     let descriptions;
     let data = {};
     let scores = [];
