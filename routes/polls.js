@@ -57,20 +57,19 @@ module.exports = (knex) => {
             });
 
             //Get scores from data and push to data array
-            descriptions.forEach((item) => {
-              if (!data[item.description]) {
-                scores.push(0);  
-              } else {
-                scores.push(data[item.description]);
-              }
+
+            descriptions.forEach((description) => {
+                scores.push(data[description]);
             });
 
             // vars to use um EJS template
             const templatedVars = {
               descriptions,
               scores,
-              question
+              question,
+              pollId
             };
+
             res.render("admin_poll", templatedVars);
           });
         })
@@ -79,7 +78,7 @@ module.exports = (knex) => {
       }
     });
 
-    
+
   });
 
   // send email from admin page
@@ -184,7 +183,7 @@ module.exports = (knex) => {
         });
     })
   }
-  //returns array of descriptions from options 
+  //returns array of descriptions from options
   function getRanksByPollId (pollId) {
     return new Promise((resolve, reject) => {
       knex.select('options.description', 'users_choices.rank')

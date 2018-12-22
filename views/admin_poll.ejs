@@ -1,47 +1,86 @@
-<!-- HOW DATA SHOULD BE ACCESSED
-<h1>Poll Admin Page</h1>
-
-<% for (var i = 0; i < descriptions.length; i++) { %>
-  <p><%= descriptions[i].description %> : <%= scores[i] %></p>
-<% } %> -->
-
 <!DOCTYPE html>
 
 <html>
   <head>
     <title>Poll Admin Page</title>
-      <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
-      <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-      <link rel="stylesheet" href="/styles/admin.css" type="text/css" />
-      <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
-      <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+      <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css"/>
+      <link rel="stylesheet" href="/vendor/border-box.css" type="text/css"/>
+      <link rel="stylesheet" href="/styles/admin.css" type="text/css"/>
       <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+      <script type="text/javascript" src="/scripts/app.js"></script>
+      <script type="text/javascript" src="/scripts/admin.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+
+
   </head>
 <body>
-  <section class="result-bar">
-    <div class="span6">
-      <h5>Question</h5>
-      <strong>Option 1</strong><span class="pull-right">30%</span>
-      <div class="progress progress-striped active">
-        <div class="bar" style="width: 30%;"></div>
-      </div>
-      <strong>Option 2</strong><span class="pull-right">40%</span>
-        <div class="progress progress-striped active">
-          <div class="bar" style="width: 40%;"></div>
-        </div>
-      <strong>Option 3</strong><span class="pull-right">10%</span>
-        <div class="progress progress-striped active">
-          <div class="bar" style="width: 10%;"></div>
-        </div>
-    </div>
+  <section class="value" style="display:none;">
+      <% var descriptions_arry = []; %>
+      <% var scores_arry = []; %>
+      <% for (var i = 0; i < descriptions.length; i++) { %>
+      <% descriptions_arry.push(descriptions[i]) %>
+      <% } %>
+      <% for (var j = 0; j < scores.length; j++) { %>
+      <% scores_arry.push(scores[j]) %>
+      <% } %>
+    <div class="question"><%= question %></div>
+    <div class="descriptions"><%= descriptions_arry %></div>
+    <div class="scores"><%= scores_arry %></div>
   </section>
-  <section class="links">
+  <canvas id="myChart" width="400" height="400"></canvas>
 
   </section>
   <section class="send-email">
-  	<form action="/polls/<%= pollId %>/admin" method="POST">
-  		<button class="send-email-btn">Send Email</button>
-  	</form>
+    <form action="/polls/<%= pollId %>/admin" method="POST">
+      <button class="send-email-btn">Send Email</button>
+    </form>
   </section>
+
+<script>
+    var ctx = $("#myChart");
+    var descriptions_arry = $(".descriptions").text().split(",");
+    var scores_arry = $(".scores").text().split(",");
+    var myChart = new Chart(ctx, {
+    type: 'horizontalBar',
+    data: {
+        labels: descriptions_arry,
+        datasets: [{
+            label: 'Score',
+            data: scores_arry,
+            backgroundColor: [
+                // 'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                // 'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                // 'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                // 'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+      title: {
+            display: true,
+            text: $(".question").text()
+        },
+        scales: {
+            xAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+</script>
+
 </body>
 </html>
