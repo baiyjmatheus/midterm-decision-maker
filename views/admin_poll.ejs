@@ -8,29 +8,30 @@
       <link rel="stylesheet" href="/styles/admin.css" type="text/css"/>
       <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
       <script type="text/javascript" src="/scripts/app.js"></script>
+      <script type="text/javascript" src="/scripts/admin.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 
 
   </head>
 <body>
-  <section class="result-bar" style="display:none;">
-    <div class="span6">
+  <section class="value" style="display:none;">
       <% var descriptions_arry = []; %>
       <% var scores_arry = []; %>
       <% for (var i = 0; i < descriptions.length; i++) { %>
-      <% descriptions_arry.push(descriptions[i].description) %>
+      <% descriptions_arry.push(descriptions[i]) %>
       <% } %>
       <% for (var j = 0; j < scores.length; j++) { %>
-      <% scores_arry.push(scores[i]) %>
+      <% scores_arry.push(scores[j]) %>
       <% } %>
     <div class="question"><%= question %></div>
     <div class="descriptions"><%= descriptions_arry %></div>
     <div class="scores"><%= scores_arry %></div>
   </section>
+  <canvas id="myChart" width="400" height="400"></canvas>
 
-<canvas id="myChart" width="400" height="400"></canvas>
+
+
 <script>
-
     var ctx = $("#myChart");
     var descriptions_arry = $(".descriptions").text().split(",");
     var scores_arry = $(".scores").text().split(",");
@@ -75,7 +76,5 @@
     }
 });
 </script>
-
-
 </body>
 </html>

@@ -59,7 +59,7 @@ module.exports = (knex) => {
             //Get scores from data and push to data array
             descriptions.forEach((item) => {
               if (!data[item.description]) {
-                scores.push(0);  
+                scores.push(0);
               } else {
                 scores.push(data[item.description]);
               }
@@ -73,7 +73,7 @@ module.exports = (knex) => {
             };
 
             console.log(templatedVars);
-            
+
             res.render("admin_poll", templatedVars);
           });
         })
