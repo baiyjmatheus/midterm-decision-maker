@@ -48,9 +48,9 @@ app.use("/styles", sass({
 }));
 app.use(express.static("public"));
 
-mailgun.messages().send(data, function (error, body) {
-  console.log(body);
-});
+// mailgun.messages().send(data, function (error, body) {
+//   console.log(body);
+// });
 // Mount all resource routes
 app.use("/users", usersRoutes(knex));
 app.use("/polls", pollsRoutes(knex));

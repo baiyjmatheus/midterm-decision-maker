@@ -81,6 +81,11 @@ module.exports = (knex) => {
 
     
   });
+
+  // send email from admin page
+  router.post('/:poll_id/admin', (req, res) => {
+    res.send("post?")
+  })
   
   // New poll
   router.get("/new", (req, res) => {
