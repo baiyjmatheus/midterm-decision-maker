@@ -42,7 +42,11 @@ const submitUserData = function () {
 		var $username = $(".username").val()
 		var $email = $(".email").val()
 		var $error = $(".error")
-		if ($username && $email) {
+    var email_regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
+    if (!email_regex.test($email)) {
+      $error.text("Email is not valid")
+    }
+		else if ($username && $email) {
 			$.ajax({
 				url: '/users',
 				type: 'POST',

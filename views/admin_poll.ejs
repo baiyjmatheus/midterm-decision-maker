@@ -14,14 +14,12 @@
   <section class="result-bar">
     <div class="span6">
       <h5>Question</h5>
-
       <% for (var i = 0; i < descriptions.length; i++) { %>
        <strong><%= descriptions[i].description %></strong><span class="pull-right"><%= scores[i] %></span>
         <div class="progress progress-striped active">
           <div class="bar" style="width: <%= scores[i] %>%;"></div>
         </div>
       <% } %>
-
   </section>
   <section class="links">
 

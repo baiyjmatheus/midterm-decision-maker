@@ -11,8 +11,10 @@
 
 .polls {
   display:none;
-}
 
-.submit-btn {
-  color: black;
+  .submit-btn {
+    background-color: white;
+    color: grey;
+    border-color: black;
+  }
 }

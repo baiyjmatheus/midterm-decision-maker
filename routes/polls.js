@@ -67,9 +67,9 @@ module.exports = (knex) => {
       }
     });
 
-    
+
   });
-  
+
   // New poll
   router.get("/new", (req, res) => {
     res.render("new_poll");
@@ -166,7 +166,7 @@ module.exports = (knex) => {
         });
     })
   }
-  //returns array of descriptions from options 
+  //returns array of descriptions from options
   function getRanksByPollId (pollId) {
     return new Promise((resolve, reject) => {
       knex.select('options.description', 'users_choices.rank')
