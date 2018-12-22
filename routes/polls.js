@@ -65,7 +65,8 @@ module.exports = (knex) => {
             const templatedVars = {
               descriptions,
               scores,
-              question
+              question,
+              pollId
             };
 
             console.log(templatedVars);
