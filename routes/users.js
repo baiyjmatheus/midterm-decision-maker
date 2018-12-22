@@ -18,7 +18,7 @@ module.exports = (knex) => {
 					.insert({email: email, name: name})
 					.then((newId) => {
 						console.log(newId);
-						req.session.id = newId;
+						req.session.id = newId[0];
 						res.send("done");
 					});
 				} else {
