@@ -1,10 +1,3 @@
-<!-- HOW DATA SHOULD BE ACCESSED
-<h1>Poll Admin Page</h1>
-
-<% for (var i = 0; i < descriptions.length; i++) { %>
-  <p><%= descriptions[i].description %> : <%= scores[i] %></p>
-<% } %> -->
-
 <!DOCTYPE html>
 
 <html>
@@ -21,19 +14,14 @@
   <section class="result-bar">
     <div class="span6">
       <h5>Question</h5>
-      <strong>Option 1</strong><span class="pull-right">30%</span>
-      <div class="progress progress-striped active">
-        <div class="bar" style="width: 30%;"></div>
-      </div>
-      <strong>Option 2</strong><span class="pull-right">40%</span>
+
+      <% for (var i = 0; i < descriptions.length; i++) { %>
+       <strong><%= descriptions[i].description %></strong><span class="pull-right"><%= scores[i] %></span>
         <div class="progress progress-striped active">
-          <div class="bar" style="width: 40%;"></div>
+          <div class="bar" style="width: <%= scores[i] %>%;"></div>
         </div>
-      <strong>Option 3</strong><span class="pull-right">10%</span>
-        <div class="progress progress-striped active">
-          <div class="bar" style="width: 10%;"></div>
-        </div>
-    </div>
+      <% } %>
+
   </section>
   <section class="links">
 
