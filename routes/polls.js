@@ -10,7 +10,7 @@ module.exports = (knex) => {
   router.post("/", (req, res) => {
     let question = req.body.question;
     let options = req.body.options;
-    let info = req.body.info;
+    let option_info = req.body.info;
     let user_id = req.session.id;
     console.log(user_id)
     let poll_id = uuidv4();
@@ -19,9 +19,9 @@ module.exports = (knex) => {
     .insert({id: poll_id, question: question, type: 1, creator_id: user_id})
     .then(function(newId) {
       poll_id = newId;
-      options.forEach((option) => {
+      options.forEach((option, index) => {
         knex('options')
-        .insert({description:option, poll_id: newId[0]})
+        .insert({description:option, poll_id: newId[0], info: option_info[index]})
         .finally();
       })
     })
@@ -141,6 +141,7 @@ module.exports = (knex) => {
         question,
         options
       }
+      console.log(templatedVars);
       res.render("voting-poll", templatedVars);
     });
 
