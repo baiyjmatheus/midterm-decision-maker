@@ -21,7 +21,7 @@ exports.up = function(knex, Promise) {
 
 	 function createPollsTable () {
 	 	return knex.schema.createTable('polls', function(table) {
-	 		table.increments();
+	 		table.string('id').primary();
 	 		table.string('question')
 	 		table.integer('type')
 
@@ -34,7 +34,7 @@ exports.up = function(knex, Promise) {
 	 		table.increments()
 	 		table.string('description')
 
-	 		table.integer('poll_id').references('id').inTable('polls')
+	 		table.string('poll_id').references('id').inTable('polls')
 	 	})
 	 }
 

@@ -3,29 +3,32 @@ const mailgunConfig = require('./config');
 const express = require('express');
 const router  = express.Router();
 const mailgun = require('mailgun-js')({apiKey: mailgunConfig.api_key, domain: mailgunConfig.domain});
+const uuidv4 = require('uuidv4');
 
 module.exports = (knex) => {
   // Submit new poll to db
   router.post("/", (req, res) => {
     let question = req.body.question;
     let options = req.body.options;
-    let info = req.body.info;
+    let option_info = req.body.info;
     let user_id = req.session.id;
-    let poll_id;
+    let poll_id = uuidv4();
     knex('polls')
     .returning('id')
-    .insert({question: question, type: 1, creator_id: user_id})
+    .insert({id: poll_id, question: question, type: 1, creator_id: user_id})
     .then(function(newId) {
       poll_id = newId;
-      options.forEach((option) => {
+      options.forEach((option, index) => {
         knex('options')
-        .insert({description:option, poll_id: newId[0]})
+        .insert({description:option, poll_id: newId[0], info: option_info[index]})
         .finally();
       })
     })
     .then(() => {
       getEmailFromPollId(poll_id[0]).then((email) => {
+        console.log(email)
           getNameFromUserId(user_id).then((name) => {
+            console.log(email)
           var data = {
             from: 'finest-devs@hotmail.com',
             to: email[0].email,
@@ -125,7 +128,7 @@ Brought to you by the finest devs at Finest Devs Corp`
       })
     })
   })
-  
+
   // New poll
   router.get("/new", (req, res) => {
     res.render("new_poll");
@@ -160,6 +163,7 @@ Brought to you by the finest devs at Finest Devs Corp`
         question,
         options
       }
+      console.log(templatedVars);
       res.render("voting-poll", templatedVars);
     });
 
@@ -169,8 +173,9 @@ Brought to you by the finest devs at Finest Devs Corp`
   router.post("/:poll_id", (req, res) => {
     // Set ranks for each option
     const userId = req.session.id;
-    console.log(userId)
     const pollId = req.params.poll_id;
+    console.log("poll id", pollId)
+    console.log("params", req.params)
     const {options} = req.body;
     const ranks = [];
 
@@ -181,6 +186,7 @@ Brought to you by the finest devs at Finest Devs Corp`
       getNameFromUserId(userId).then((name) => {
         getNameFromEmail(email[0].email).then((nameCreator) => {
           getQuestionByPollId(pollId).then((question) => {
+            console.log("email", email[0].email)
             var data = {
               from: 'finest-devs@hotmail.com',
               to: email[0].email,
@@ -210,7 +216,7 @@ Brought to you by the finest devs at Finest Devs Corp`
     });
 
 
-    res.send("Thanks for voting");
+    res.send('<p style="font-family: Helvetica; font-size: 6vw;">Thank you for voting</p><img src="/images/qsmile.png" width="30%">');
   });
 
   // returns if the poll belongs to user
