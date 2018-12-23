@@ -12,14 +12,14 @@
         <script type="text/javascript" src="/scripts/new_poll.js"></script>
     </head>
     <body>
-    <div class="error"></div>
+    <div class="erroruser"></div>
     <div class="userinfo">
       <form action="/users" method="POST">
         <div class="form-group emailbox">
           <input type="email" id="email" name="email" class="email" placeholder="Email address">
         </div>
 
-        <div class="form-group usernamebox">        
+        <div class="form-group usernamebox">
 
           <input type=“text” placeholder="Enter your name" class="username">
         </div>
@@ -27,6 +27,7 @@
       </form>
     </div>
 
+    <div class="erroroption"></div>
     <form class="polls" action="/polls" method="POST">
       <section class="poll-form">
         <div class="input-group mb-3 question-box">

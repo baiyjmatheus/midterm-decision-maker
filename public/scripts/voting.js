@@ -6,8 +6,8 @@ $(document).ready(function() {
 		var $email = $(".email").val();
     var $error = $(".error");
     var email_regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
-    if (!email_regex.test($email)) {
-      $error.text("Email is not valid")
+    if (!email_regex.test($email) && $email) {
+      $error.html("Sorry, Please enter a valid email address")
     }
     else if ($username && $email) {
 		$.ajax({
@@ -30,7 +30,7 @@ $(document).ready(function() {
       }
     });
     } else {
-      $error.text("Input fields cannot be blank.")
+      $error.html("Sorry, Please fill out all input fields")
     }
   });
 
