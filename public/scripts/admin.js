@@ -1,8 +1,9 @@
 
-const sendEmail = function() {
+const sendEmailFromButton = function() {
 	$('.send-email-btn').on('click', function(e) {
 		e.preventDefault();
 		let pollId = $('.send-email-btn').data('pollid')
+		console.log(pollId)
 		let question = $('.question').text()
 		let descriptions = $('.descriptions').text()
 		let scores = $('.scores').text()
@@ -30,5 +31,5 @@ const sendEmail = function() {
 }
 
 $(document).ready(function() {
-	sendEmail()
+	sendEmailFromButton()
 })

@@ -73,7 +73,7 @@ const submitUserData = function () {
 const submitPollData = function () {
 	$('.submit-btn').on('click', function(e) {
 		e.preventDefault()
-    var $question = $(".question").val()
+    	var $question = $(".question").val()
 		var $options = $(".option-input").val()
 		var $error = $(".error")
     if ($options && $question) {
