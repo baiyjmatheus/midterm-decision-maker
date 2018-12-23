@@ -3,6 +3,7 @@ const mailgunConfig = require('./config');
 const express = require('express');
 const router  = express.Router();
 const mailgun = require('mailgun-js')({apiKey: mailgunConfig.api_key, domain: mailgunConfig.domain});
+const uuidv4 = require('uuidv4');
 
 module.exports = (knex) => {
   // Submit new poll to db
@@ -12,10 +13,10 @@ module.exports = (knex) => {
     let info = req.body.info;
     let user_id = req.session.id;
     console.log(user_id)
-    let poll_id;
+    let poll_id = uuidv4();
     knex('polls')
     .returning('id')
-    .insert({question: question, type: 1, creator_id: user_id})
+    .insert({id: poll_id, question: question, type: 1, creator_id: user_id})
     .then(function(newId) {
       poll_id = newId;
       options.forEach((option) => {
