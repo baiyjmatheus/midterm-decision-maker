@@ -148,7 +148,8 @@ module.exports = (knex) => {
   // Submit participant choices
   router.post("/:poll_id", (req, res) => {
     // Set ranks for each option
-    const userId = req.session.id[0];
+    const userId = req.session.id;
+    console.log(userId)
     const pollId = req.params.poll_id;
     const {options} = req.body;
     const ranks = [];

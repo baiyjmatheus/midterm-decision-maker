@@ -1,50 +1,50 @@
 const newOption = function () {
-	let newPollForm =
+	let newPollOption =
 	`<div class="input-group mb-3 option-box">
   		<span class="input-group-text option-title" id="inputGroup-sizing-default"></span>
   			<input type="text" class="form-control option-input" placeholder="Option" aria-label="" aria-describedby="basic-addon1">
  		<div class="input-group-append">
     		<button class="btn btn-outline-secondary delete-option" type="button">Delete</button>
   		</div>
-	</div>`
-	return newPollForm;
-}
+	</div>`;
+	return newPollOption;
+};
 
 const updateOptionCount = function () {
 
-		let optionsArr = $(".option-title").toArray()
-		let len = optionsArr.length
-		let increment = 1
+		let optionsArr = $(".option-title").toArray();
+		let len = optionsArr.length;
+		let increment = 1;
 		optionsArr.forEach((option) => {
 			$(option).text(`Option ${increment}`)
-			increment++
-		})
-}
+			increment++;
+		});
+};
 
 const addOption = function () {
 	$(".add-option").on('click', function(e) {
-		$(".poll-form").append(newOption())
-		updateOptionCount()
-	})
-}
+		$(".poll-form").append(newOption());
+		updateOptionCount();
+	});
+};
 
 const deleteOption = function () {
 	$('section.poll-form').on('click', ".delete-option", function(e) {
-		let target = $(this).parents('.option-box')
-		target.remove()
-		updateOptionCount()
-	})
-}
+		let target = $(this).parents('.option-box');
+		target.remove();
+		updateOptionCount();
+	});
+};
 
 const submitUserData = function () {
 	$(".submitbutton").on("click", function(e) {
 		e.preventDefault();
-		var $username = $(".username").val()
-		var $email = $(".email").val()
-		var $error = $(".error")
+		var $username = $(".username").val();
+		var $email = $(".email").val();
+		var $error = $(".error");
     var email_regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
     if (!email_regex.test($email)) {
-      $error.text("Email is not valid")
+      $error.text("Email is not valid");
     }
 		else if ($username && $email) {
 			$.ajax({
@@ -56,14 +56,14 @@ const submitUserData = function () {
 				},
 				success: function() {
 					console.log("Successfully sent user data")
-          $error.empty();
+          			$error.empty();
 				}
 			})
 			.done(function(data) {
 				if (data === 'done') {
-        $(".userinfo").fadeOut(function() {
-          $(".polls").fadeIn();
-      }) }})
+        			$(".userinfo").fadeOut(function() {
+          			$(".polls").fadeIn();
+      	}) }})
 		} else {
 			$error.text("Input fields cannot be blank.")
 		}
