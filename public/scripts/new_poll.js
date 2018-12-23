@@ -83,7 +83,7 @@ const submitPollData = function () {
 		})
 		// Use class info for option info input fields
 		var info = []
-		$('.info').toArray().forEach((info) => {
+		$('.option-info').toArray().forEach((info) => {
 			info.push($(info).val())
 		})
 		var question = $('.question').val();
