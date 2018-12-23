@@ -36,7 +36,7 @@
 
   <section class="send-email">
     <form action="/polls/<%= pollId %>/admin" method="POST">
-      <button class="send-email-btn" data-pollId="<%= pollId %>">Send Email</button>
+      <button class="btn btn-light send-email-btn" data-pollId="<%= pollId %>">Send Email</button>
     </form>
   </section>
 
@@ -45,6 +45,7 @@
     var ctx = $("#myChart");
     var descriptions_arry = $(".descriptions").text().split(",");
     var scores_arry = $(".scores").text().split(",");
+    Chart.defaults.global.defaultFontFamily = 'Helvetica';
     var myChart = new Chart(ctx, {
     type: 'horizontalBar',
     data: {
@@ -53,17 +54,13 @@
             label: 'Score',
             data: scores_arry,
             backgroundColor: [
-                // 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
-                // 'rgba(255, 206, 86, 0.2)',
                 'rgba(75, 192, 192, 0.2)',
                 'rgba(153, 102, 255, 0.2)',
                 'rgba(255, 159, 64, 0.2)'
             ],
             borderColor: [
-                // 'rgba(255,99,132,1)',
                 'rgba(54, 162, 235, 1)',
-                // 'rgba(255, 206, 86, 1)',
                 'rgba(75, 192, 192, 1)',
                 'rgba(153, 102, 255, 1)',
                 'rgba(255, 159, 64, 1)'
@@ -72,19 +69,36 @@
         }]
     },
     options: {
+      responsive: true,
       title: {
             display: true,
             text: $(".question").text(),
             fontSize: 30
         },
-        scales: {
+      scales: {
             xAxes: [{
                 ticks: {
                     beginAtZero:true
-                }
+                },
+                gridLines: {
+                display:false
+            }
+            }],
+            yAxes: [{
+            gridLines: {
+                display:false
+            }
             }]
+        },
+      layout: {
+            padding: {
+                left: 20,
+                right: 40,
+                top: 30,
+                bottom: 30
+            }
         }
-  }
+    }
 });
 </script>
 

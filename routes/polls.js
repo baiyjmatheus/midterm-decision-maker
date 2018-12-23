@@ -105,7 +105,7 @@ module.exports = (knex) => {
       });
     })
   })
-  
+
   // New poll
   router.get("/new", (req, res) => {
     res.render("new_poll");
@@ -167,7 +167,7 @@ module.exports = (knex) => {
     });
 
 
-    res.send("Thanks for voting");
+    res.send('<p style="font-family: Helvetica; font-size: 6vw;">Thank you for voting</p><img src="/images/qsmile.png" width="30%">');
   });
 
   // returns if the poll belongs to user
