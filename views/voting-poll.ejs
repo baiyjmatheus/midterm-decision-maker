@@ -25,7 +25,7 @@
     </script>
 </head>
 <body>
-  <div class="error"></div>
+  <h3 class="error"></h3>
   <div class="wrapper">
     <form action="/users" method="POST">
       <div class="form-group emailbox">
@@ -52,10 +52,12 @@
           <li title ="<%=option.info%>" data-id="<%= option.id %>"class="ui-state-default options-item"><i class="fa fa-arrows-v"></i><%= option.description %></li>
         <%  }) %>
       </ul>
-      <button class="send-vote">Submit<span><i class="fa fa-paper-plane"></i></span></button>
-    </form> 
-    </div>   
+      <button class="send-vote" data-pollid="<%= id %>">Submit<span><i class="fa fa-paper-plane"></i></span></button>
+    </form>
+    </div>
   </div>
-  <%- include("partials/_footer") %>
+
+  
+
 </body>
 </html>

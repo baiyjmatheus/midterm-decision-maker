@@ -1,7 +1,8 @@
+
 const newOption = function () {
 	let newPollOption =
 	`<div class="input-group mb-3 option-box">
-  		<span class="input-group-text option-title" id="inputGroup-sizing-default"></span>	  
+  		<span class="input-group-text option-title" id="inputGroup-sizing-default"></span>
 		  <input type="text" class="form-control option-input" placeholder="Option" aria-label="" aria-describedby="basic-addon1">
 		  <textarea type="text" class="form-control option-info" placeholder="Description"></textarea>
 		  <div class="input-group-append">
@@ -11,131 +12,136 @@ const newOption = function () {
 	return newPollOption;
 };
 
-const updateOptionCount = function () {
+  const updateOptionCount = function () {
 
-		let optionsArr = $(".option-title").toArray();
-		let len = optionsArr.length;
-		let increment = 1;
-		optionsArr.forEach((option) => {
-			$(option).text(`Option ${increment}`)
-			increment++;
-		});
-};
+  		let optionsArr = $(".option-title").toArray();
+  		let len = optionsArr.length;
+  		let increment = 1;
+  		optionsArr.forEach((option) => {
+  			$(option).text(`Option ${increment}`)
+  			increment++;
+  		});
+  };
 
-const addOption = function () {
-	$(".add-option").on('click', function(e) {
-		$(".poll-form").append(newOption());
-		updateOptionCount();
-	});
-};
+  const addOption = function () {
+  	$(".add-option").on('click', function(e) {
+  		$(".poll-form").append(newOption());
+  		updateOptionCount();
+  	});
+  };
 
-const deleteOption = function () {
-	$('section.poll-form').on('click', ".delete-option", function(e) {
-		let target = $(this).parents('.option-box');
-		target.remove();
-		updateOptionCount();
-	});
-};
+  const deleteOption = function () {
+  	$('section.poll-form').on('click', ".delete-option", function(e) {
+  		let target = $(this).parents('.option-box');
+  		target.remove();
+  		updateOptionCount();
+  	});
+  };
 
-const submitUserData = function () {
-	$(".submitbutton").on("click", function(e) {
-		e.preventDefault();
-		var $username = $(".username").val();
-		var $email = $(".email").val();
-		var $error = $(".error");
-    var email_regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
-    if (!email_regex.test($email)) {
-      $error.text("Email is not valid");
-    }
-		else if ($username && $email) {
-			$.ajax({
-				url: '/users',
-				type: 'POST',
-				data: {
-					$username,
-					$email
-				},
-				success: function() {
-					console.log("Successfully sent user data")
-          			$error.empty();
-				}
-			})
-			.done(function(data) {
-				if (data === 'done') {
-        			$(".userinfo").fadeOut(function() {
-          			$(".polls").fadeIn();
-      	}) }})
-		} else {
-			$error.text("Input fields cannot be blank.")
-		}
-	})
-}
-
-const submitPollData = function () {
-	$('.submit-btn').on('click', function(e) {
-		e.preventDefault()
-    var $question = $(".question").val()
-		var $options = $(".option-input").val()
-		var $error = $(".error")
-    if ($options && $question) {
-		var options = []
-		$('.option-input').toArray().forEach((option) => {
-			options.push($(option).val())
-		})
-		// Use class info for option info input fields
-		var info = [];
-		$('.option-info').toArray().forEach((info_) => {
-			info.push($(info_).val());
-		})
-		var question = $('.question').val();
-		$.ajax({
-			url:'/polls',
-			type:'POST',
-			data: {
-				question,
-				options,
-				info
-			},
-			success: function() {
-				console.log("successful post of new poll to /polls")
-        $error.empty();
-			}
-		})
-		.done(function(data) {
-      const id = data;
-      if (data !== null) {
-        window.location = `/polls/${id}/admin`;
+  const submitUserData = function () {
+  	$(".submitbutton").on("click", function(e) {
+  		e.preventDefault();
+  		var $username = $(".username").val();
+  		var $email = $(".email").val();
+  		var $error = $(".erroruser");
+      var email_regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
+      if (!email_regex.test($email) && $email) {
+        $error.text("Sorry, Please enter a valid email address");
       }
-		})
-  } else {
-      $error.text("Input fields cannot be blank.")
-    }
-	})
-}
+  		else if ($username && $email) {
+  			$.ajax({
+  				url: '/users',
+  				type: 'POST',
+  				data: {
+  					$username,
+  					$email
+  				},
+  				success: function() {
+  					console.log("Successfully sent user data")
+            			$error.empty();
+  				}
+  			})
+  			.done(function(data) {
+  				if (data === 'done') {
+          			$(".userinfo").fadeOut(function() {
+            			$(".polls").fadeIn();
+        	}) }})
+  		} else {
+  			$error.text("Sorry, Please fill out all input fields")
+  		}
+  	})
+  }
+
+// <<<<<<< HEAD
+  const submitPollData = function () {
+  	$('.submit-btn').on('click', function(e) {
+  		e.preventDefault()
+      var $question = $(".question").val()
+  		var $options = $(".option-input").val()
+  		var $error = $(".erroroption")
+      var flag = true;
+  		var options = []
+  		$('.option-input').toArray().forEach((option) => {
+  			options.push($(option).val())
+        if (!$(option).val()) {
+          flag = false;
+        }
+  		})
+  		// Use class info for option info input fields
+  		var info = []
+    $('.option-info').toArray().forEach((info_) => {
+      info.push($(info_).val());
+    })
+  		var question = $('.question').val();
+    if ($options && $question && flag) {
+  		$.ajax({
+  			url:'/polls',
+  			type:'POST',
+  			data: {
+  				question,
+  				options,
+  				info
+  			},
+  			success: function() {
+  				console.log("successful post of new poll to /polls")
+          $error.empty();
+  			}
+  		})
+  		.done(function(data) {
+        const id = data;
+        if (data !== null) {
+          window.location = `/polls/${id}/admin`;
+        }
+  		})
+    } else {
+        $error.text("Sorry, Please fill out all input fields")
+      }
+  	})
+  }
 
 
 
-const showDeleteButtons = function () {
-	$(document).on('click', '.delete-option, .add-option', function() {
-		var n = $('.delete-option').length;
-		console.log(n);
-		if (n < 3) {
-			$('.delete-option').hide();
-		} else {
-			$('.delete-option').show();
-		}
-	})
-}
+  const showDeleteButtons = function () {
+  	$(document).on('click', '.delete-option, .add-option', function() {
+  		var n = $('.delete-option').length;
+  		console.log(n);
+  		if (n < 3) {
+  			$('.delete-option').hide();
+  		} else {
+  			$('.delete-option').show();
+  		}
+  	})
+  }
 
 
 
 
 
-$(document).ready(function() {
-	submitUserData();
-	addOption();
-	deleteOption();
-	submitPollData();
-	showDeleteButtons();
+  $(document).ready(function() {
+  	submitUserData();
+  	addOption();
+  	deleteOption();
+  	submitPollData();
+  	showDeleteButtons();
 
-})
+  })

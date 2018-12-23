@@ -163,30 +163,20 @@ body{
     .thank-you{
         width: 100vw;
         display: inline-block;
-        
         text-align: center;
-        padding: 20px;
         color: #fff;
         font-size: 15vh;
 
     }
-
-
-
-    .page-footer{
-        position: absolute;
-        bottom: 0;
-        width: 100vw;
-        height: 3vh; 
-        background: #fff;
-        font-weight: bold;
-        padding: 10px 0;
+    
+       .error {
+        color: red;
         text-align: center;
-        
-        a {
-           text-decoration: none;
-           color: inherit;
-         }
-     
-       }
+        position: absolute;
+        margin-left: 37.4%;
+        width: 25.2vw;
+        transform: translateY(160px);
+        font-size: 1vw;
+        text-transform: capitalize;
+      }
 }
