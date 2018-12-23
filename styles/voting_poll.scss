@@ -6,10 +6,7 @@ body{
     margin: 0;
     font-family: $baseFont;
     text-transform: uppercase;
-    background: url("/images/bg.png") no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
+    background-image: url("/images/bg.png");
     background-size: cover;
 
     .wrapper {
@@ -39,11 +36,8 @@ body{
                 text-align: center;
                 box-sizing: border-box;
 
-            }
-
-
-        }
-
+            }           
+        }     
         .submitbutton {
             margin-top: 7vh;
             margin-bottom: 5vh;
@@ -68,7 +62,7 @@ body{
 
     .hidden {
         display:none;
-
+        
         .poll-container{
             display: flex;
             margin: 5vh auto;
@@ -94,25 +88,25 @@ body{
                     height: 6vw;
                     width: auto;
                 }
-
+    
                 .poll-question {
                     display: inline-block;
                     // padding: 10px;
                     text-align: center;
                     font-weight: bolder;
-                    margin-top: 1vh;
-
+                    margin-top: 1vh; 
+                       
                  }
             }
-
+            
 
             form {
                 text-align: center;
 
                 .options-list {
                     padding: 0;
-
-
+                    
+                
                     .options-item {
                         list-style: none;
                         font-size: 1.5vw;
@@ -132,9 +126,9 @@ body{
                         }
 
 
-
+                        
                         i {
-                            margin-left: 10px;
+                            margin-left: 10px;  
                             margin-right: 40px;
                         }
                     }
@@ -167,13 +161,32 @@ body{
     }
 
     .thank-you{
-        width: 100%;
+        width: 100vw;
         display: inline-block;
-
+        
         text-align: center;
         padding: 20px;
         color: #fff;
         font-size: 15vh;
 
     }
+
+
+
+    .page-footer{
+        position: absolute;
+        bottom: 0;
+        width: 100vw;
+        height: 3vh; 
+        background: #fff;
+        font-weight: bold;
+        padding: 10px 0;
+        text-align: center;
+        
+        a {
+           text-decoration: none;
+           color: inherit;
+         }
+     
+       }
 }
