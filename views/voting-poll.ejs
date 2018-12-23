@@ -19,6 +19,9 @@
       $( "#sortable" ).sortable();
       $( "#sortable" ).disableSelection();
     } );
+    $( function() {
+    $( document ).tooltip();
+    } );
     </script>
 </head>
 <body>
@@ -46,10 +49,10 @@
     <form action="/polls/<%= id %>" method="POST">
       <ul id="sortable" class="options-list">
         <% options.forEach((option) => { %>
-          <li data-id="<%= option.id %>"class="ui-state-default options-item"><i class="fa fa-arrows-v"></i><%= option.description %></li>
+          <li title ="<%=option.info%>" data-id="<%= option.id %>"class="ui-state-default options-item"><i class="fa fa-arrows-v"></i><%= option.description %></li>
         <%  }) %>
       </ul>
-      <button class="send-vote">Submit<span><i class="fa fa-paper-plane"></i></span></button>
+      <button class="send-vote" data-pollid="<%= id %>">Submit<span><i class="fa fa-paper-plane"></i></span></button>
     </form>
     </div>
   </div>

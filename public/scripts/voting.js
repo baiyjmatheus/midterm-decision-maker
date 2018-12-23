@@ -39,6 +39,7 @@ $(document).ready(function() {
   // User sends his sequence to server
   $(".send-vote").on("click", function(e) {
     e.preventDefault();
+    var pollId = $('.send-vote').data("pollid");
     var options = [];
     $("ul#sortable li").toArray().forEach((option) => {
       var newOption = {
@@ -50,9 +51,10 @@ $(document).ready(function() {
     // Send options to server
     $.ajax({
       // Hardcoded URL for now
-      url: "/polls/2",
+      url: `/polls/${pollId}`,
       type: "POST",
       data: {
+        pollId,
         options
       },
       success: function() {
@@ -66,5 +68,11 @@ $(document).ready(function() {
       $("body").fadeIn("slow");
     });
   });
+
+
+  $( "li" ).tooltip({
+    position: { my: "left+15 center", at: "right center" }
+  });
+
 
 });

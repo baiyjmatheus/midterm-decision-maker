@@ -1,14 +1,16 @@
-  const newOption = function () {
-  	let newPollOption =
-  	`<div class="input-group mb-3 option-box">
-    		<span class="input-group-text option-title" id="inputGroup-sizing-default"></span>
-    			<input type="text" class="form-control option-input" placeholder="Option" aria-label="" aria-describedby="basic-addon1">
-   		<div class="input-group-append">
-      		<button class="btn btn-outline-secondary delete-option" type="button">Delete</button>
-    		</div>
-  	</div>`;
-  	return newPollOption;
-  };
+
+const newOption = function () {
+	let newPollOption =
+	`<div class="input-group mb-3 option-box">
+  		<span class="input-group-text option-title" id="inputGroup-sizing-default"></span>
+		  <input type="text" class="form-control option-input" placeholder="Option" aria-label="" aria-describedby="basic-addon1">
+		  <textarea type="text" class="form-control option-info" placeholder="Description"></textarea>
+		  <div class="input-group-append">
+    		<button class="btn btn-outline-secondary delete-option" type="button">Delete</button>
+  		</div>
+	</div>`;
+	return newPollOption;
+};
 
   const updateOptionCount = function () {
 
@@ -70,6 +72,7 @@
   	})
   }
 
+// <<<<<<< HEAD
   const submitPollData = function () {
   	$('.submit-btn').on('click', function(e) {
   		e.preventDefault()
@@ -86,9 +89,9 @@
   		})
   		// Use class info for option info input fields
   		var info = []
-  		$('.info').toArray().forEach((info) => {
-  			info.push($(info).val())
-  		})
+    $('.option-info').toArray().forEach((info_) => {
+      info.push($(info_).val());
+    })
   		var question = $('.question').val();
     if ($options && $question && flag) {
   		$.ajax({

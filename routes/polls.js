@@ -3,28 +3,46 @@ const mailgunConfig = require('./config');
 const express = require('express');
 const router  = express.Router();
 const mailgun = require('mailgun-js')({apiKey: mailgunConfig.api_key, domain: mailgunConfig.domain});
+const uuidv4 = require('uuidv4');
 
 module.exports = (knex) => {
   // Submit new poll to db
   router.post("/", (req, res) => {
     let question = req.body.question;
     let options = req.body.options;
-    let info = req.body.info;
+    let option_info = req.body.info;
     let user_id = req.session.id;
-    console.log(user_id)
-    let poll_id;
+    let poll_id = uuidv4();
     knex('polls')
     .returning('id')
-    .insert({question: question, type: 1, creator_id: user_id})
+    .insert({id: poll_id, question: question, type: 1, creator_id: user_id})
     .then(function(newId) {
       poll_id = newId;
-      options.forEach((option) => {
+      options.forEach((option, index) => {
         knex('options')
-        .insert({description:option, poll_id: newId[0]})
+        .insert({description:option, poll_id: newId[0], info: option_info[index]})
         .finally();
       })
     })
     .then(() => {
+      getEmailFromPollId(poll_id[0]).then((email) => {
+        console.log(email)
+          getNameFromUserId(user_id).then((name) => {
+            console.log(email)
+          var data = {
+            from: 'finest-devs@hotmail.com',
+            to: email[0].email,
+            subject: `Links to your latest poll titled: ${question}`,
+            text: `Hi ${name[0].name}! \n
+  Here's your administrative link: localhost:8080/polls/${poll_id[0]}/admin \n
+  Here's the link to send to your voters: localhost:8080/polls/${poll_id[0]} \n\n
+  Brought to you by the finest devs at Finest Devs Corp`
+        };
+        mailgun.messages().send(data, function (error, body) {
+          console.log(body);
+          })
+        })
+    })
       res.send(poll_id);
     });
   });
@@ -88,21 +106,26 @@ module.exports = (knex) => {
     let question = req.body.question;
     let descriptionsOptions = req.body.descriptionsOptions
     let pollId = req.body.pollId
+    console.log(pollId)
     let emailMsg = "";
     for (let option in descriptionsOptions) {
       emailMsg += "\n" + option + ": " + descriptionsOptions[option] + " points" + "\n"
     }
     getEmailFromPollId(pollId).then((email) => {
-      var data = {
-        from: 'finest-devs@hotmail.com',
-        to: email[0].email,
-        subject: `Results to your question: ${question}`,
-        text: `The votes are in, here are the final scores to your question: ${question} \n
-          ${emailMsg}`
-      };
-      mailgun.messages().send(data, function (error, body) {
-        console.log(body);
-      });
+      getNameFromEmail(email[0].email).then((name) => {
+        var data = {
+          from: 'finest-devs@hotmail.com',
+          to: email[0].email,
+          subject: `Results to your question: ${question}`,
+          text: `Hi ${name[0].name}! \n
+The votes are in, here are the final scores to your question: ${question} \n
+${emailMsg} \n\n
+Brought to you by the finest devs at Finest Devs Corp`
+        };
+        mailgun.messages().send(data, function (error, body) {
+          console.log(body);
+        });
+      })
     })
   })
 
@@ -140,6 +163,7 @@ module.exports = (knex) => {
         question,
         options
       }
+      console.log(templatedVars);
       res.render("voting-poll", templatedVars);
     });
 
@@ -149,20 +173,44 @@ module.exports = (knex) => {
   router.post("/:poll_id", (req, res) => {
     // Set ranks for each option
     const userId = req.session.id;
-    console.log(userId)
     const pollId = req.params.poll_id;
+    console.log("poll id", pollId)
+    console.log("params", req.params)
     const {options} = req.body;
     const ranks = [];
 
     for (let i = options.length; i >= 1; i--) {
       ranks.push(i);
     }
-
+    getEmailFromPollId(pollId).then((email) => {
+      getNameFromUserId(userId).then((name) => {
+        getNameFromEmail(email[0].email).then((nameCreator) => {
+          getQuestionByPollId(pollId).then((question) => {
+            console.log("email", email[0].email)
+            var data = {
+              from: 'finest-devs@hotmail.com',
+              to: email[0].email,
+              subject: `Results to your question: ${question[0].question}`,
+              text: `Hi ${nameCreator[0].name}! \n
+  ${name[0].name} has voted on your question: ${question[0].question} \n
+  You can revist your poll from the following links: \n
+  Here's your administrative link: localhost:8080/polls/${pollId}/admin \n
+  Here's the link to send to your voters: localhost:8080/polls/${pollId}  \n\n
+  Brought to you by the finest devs at Finest Devs Corp`
+            };
+            mailgun.messages().send(data, function (error, body) {
+              console.log(body);
+            });
+          })
+        })        
+      })
+    })
     // Sent user choices to database
     ranks.forEach((rank, i) => {
       knex('users_choices')
       .insert({user_id: userId, option_id: options[i].id, rank: rank})
       .then(() => {
+
         console.log("sucessfully inserted to users_choices");
       });
     });
@@ -186,6 +234,17 @@ module.exports = (knex) => {
           reject();
         });
     });
+  }
+  // get question from poll id
+  function getQuestionByPollId (pollId) {
+    return new Promise((resolve, reject) => {
+      knex.select('question')
+        .from('polls')
+        .where('id', pollId)
+        .then((result) => {
+          resolve(result);
+        })
+    })
   }
   //returns number of options of a poll
   function getOptionsByPollId (pollId) {
@@ -223,6 +282,28 @@ module.exports = (knex) => {
         resolve(result);
       });
     });
+  }
+  // returns name from users matching user id
+  function getNameFromUserId (userId) {
+    return new Promise((resolve, reject) => {
+      knex.select('name')
+        .from('users')
+        .where('id', userId)
+        .then((result) => {
+          resolve(result);
+        })
+    })
+  }
+  // returns name from users matching email
+  function getNameFromEmail (email) {
+    return new Promise((resolve, reject) => {
+      knex.select('name')
+        .from('users')
+        .where('email', email)
+        .then((result) => {
+          resolve(result);
+        })
+    })
   }
 
   return router;
