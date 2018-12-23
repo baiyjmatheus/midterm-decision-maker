@@ -46,6 +46,7 @@
     var descriptions_arry = $(".descriptions").text().split(",");
     var scores_arry = $(".scores").text().split(",");
     Chart.defaults.global.defaultFontFamily = 'Helvetica';
+
     var myChart = new Chart(ctx, {
     type: 'horizontalBar',
     data: {
@@ -65,11 +66,12 @@
                 'rgba(153, 102, 255, 1)',
                 'rgba(255, 159, 64, 1)'
             ],
-            borderWidth: 1
+            borderWidth: 2
         }]
     },
     options: {
       responsive: true,
+      maintainAspectRatio: true,
       title: {
             display: true,
             text: $(".question").text(),
@@ -78,7 +80,8 @@
       scales: {
             xAxes: [{
                 ticks: {
-                    beginAtZero:true
+                    beginAtZero:true,
+                    stepSize: 1
                 },
                 gridLines: {
                 display:false
@@ -99,6 +102,7 @@
             }
         }
     }
+
 });
 </script>
 
