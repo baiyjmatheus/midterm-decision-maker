@@ -1,21 +1,19 @@
-  const updateOptionCount = function () {
-
-      let optionsArr = $(".options-counter").toArray();
-      // let increment = 1;
-      let optionsList = $(".options-list").toArray();
-      // console.log(optionsList)
-      optionsArr.forEach((option, i) => {
-        // console.log($(option).text())
-        $(option).text(i + 1)
-        // increment++;
-      });
+// Updates the li option rank label
+const updateOptionCount = function () {
+    $(document).ready(function() {
+      var options = $(".options-counter");
+      for (var i = 0; i < options.length; i++) {  
+        $(options[i]).text(i + 1);
+      }
+    });
   };
 
 $(document).ready(function() {
+  // When release sortable li, update the option rank
+  $("li.options-item").on('mouseup', function() {
+      updateOptionCount()
+  });
 
-  $(".options-item").on('mouseup','ul.options-list', function() {
-    updateOptionCount()
-  }) 
   // User enters email and name and sends them to server
   $(".submitbutton").on("click", function(e) {
 		e.preventDefault();

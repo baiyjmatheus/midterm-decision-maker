@@ -51,7 +51,11 @@
       
       <ul id="sortable" class="options-list">
         <% options.forEach((option, i) => { %>
-          <li title ="<%=option.info%>" data-id="<%= option.id %>"class="ui-state-default options-item"><span class="options-counter"><%= i + 1 %></span><i class="fa fa-arrows-v"></i><%= option.description %></li>
+          <li title ="<%=option.info%>" data-id="<%= option.id %>"class="ui-state-default options-item">
+            <span class="options-counter"><%= i + 1 %></span>
+            <i class="fa fa-arrows-v"></i>
+            <%= option.description %>
+          </li>
         <%  }) %>
       </ul>
       
