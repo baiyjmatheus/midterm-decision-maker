@@ -23,13 +23,23 @@
       <% for (var j = 0; j < scores.length; j++) { %>
       <% scores_arry.push(scores[j]) %>
       <% } %>
-      <div class="question"><%= question %></div>
+      <div class="question" ><%= question %></div>
       <div class="descriptions"><%= descriptions_arry %></div>
       <div class="scores"><%= scores_arry %></div>
   </section>
   <h1 class="result">decision maker !</h1>
+  <ul id="url-container">
+    <li>
+      <span class="url-label">Admin URL</span>
+      <input class="url" type="text" value="localhost:8080/<%= pollId %>/admin" readonly>
+    </li>
+    <li>
+      <span class="url-label">Voter URL</span>
+      <input class="url" type="text" value="localhost:8080/<%= pollId %>/" readonly>
+    </li>
+  </ul>
   <div id="wrapper">
-      <canvas id="myChart"></canvas>
+    <canvas id="myChart"></canvas>
   </div>
 
   </section>

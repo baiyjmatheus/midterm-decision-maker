@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   font-family: "Helvetica", sans-serif;
   text-transform: uppercase;
@@ -44,6 +48,32 @@ body #wrapper {
    color: #F3F3F3;
    cursor: pointer;
   }
+}
+
+ul#url-container {
+  margin: 0 auto;
+  width: 60%;
+  list-style: none;
+  padding: 0;
+}
+
+ul#url-container li {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+span.url-label {
+  display: inline-block;
+  width: 20%;
+  color: white;
+}
+
+input.url {
+  width: 80%;
+  color: #fff;
+  background: transparent;
+  border: 0;
 }
 
 
