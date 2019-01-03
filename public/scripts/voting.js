@@ -1,4 +1,21 @@
+  const updateOptionCount = function () {
+
+      let optionsArr = $(".options-counter").toArray();
+      // let increment = 1;
+      let optionsList = $(".options-list").toArray();
+      // console.log(optionsList)
+      optionsArr.forEach((option, i) => {
+        // console.log($(option).text())
+        $(option).text(i + 1)
+        // increment++;
+      });
+  };
+
 $(document).ready(function() {
+
+  $(".options-item").on('mouseup','ul.options-list', function() {
+    updateOptionCount()
+  }) 
   // User enters email and name and sends them to server
   $(".submitbutton").on("click", function(e) {
 		e.preventDefault();
@@ -33,8 +50,6 @@ $(document).ready(function() {
       $error.html("Sorry, Please fill out all input fields")
     }
   });
-
-
 
   // User sends his sequence to server
   $(".send-vote").on("click", function(e) {
