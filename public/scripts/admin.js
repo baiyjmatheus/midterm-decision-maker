@@ -1,18 +1,16 @@
 
-const sendEmailFromButton = function() {
+var sendEmailFromButton = function() {
 	$('.send-email-btn').on('click', function(e) {
 		e.preventDefault();
-		let pollId = $('.send-email-btn').data('pollid')
-		console.log(pollId)
-		let question = $('.question').text()
-		let descriptions = $('.descriptions').text()
-		let scores = $('.scores').text()
-		let descArr = descriptions.split(',')
-		let scoreArr = scores.split(',')
-		let descriptionsOptions = {}
-		console.log(pollId)
+		var pollId = $('.send-email-btn').data('pollid');
+		var question = $('.question').text();
+		var descriptions = $('.descriptions').text();
+		var scores = $('.scores').text();
+		var descArr = descriptions.split(',');
+		var scoreArr = scores.split(',');
+		var descriptionsOptions = {};
 		for (var i = 0; i < descArr.length; i++) {
-			descriptionsOptions[descArr[i]] = Number(scoreArr[i])
+			descriptionsOptions[descArr[i]] = Number(scoreArr[i]);
 		}
 		$.ajax({
 			url: '/polls/:poll_id/admin',
@@ -21,15 +19,11 @@ const sendEmailFromButton = function() {
 				question,
 				descriptionsOptions,
 				pollId
-			},
-			success: function(data) {
-				console.log("Successfully sent graph data")
 			}
-
 		})
 	})
 }
 
 $(document).ready(function() {
-	sendEmailFromButton()
+	sendEmailFromButton();
 })
