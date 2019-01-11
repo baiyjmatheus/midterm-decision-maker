@@ -31,6 +31,7 @@ Decision maker application that calculates options using the Borda Algorithm.
 
 
 # Getting Started
+  - Clone this repository
   - Install all dependencies (using `npm install` command).
-  - Run the development web server using `node index.js` command. 
+  - Run the development web server using `node server.js` command. 
   - Open `localhost:8080/` in your browser.
