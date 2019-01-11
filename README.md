@@ -6,7 +6,9 @@ Decision maker application that calculates options using the Borda Algorithm.
 
 !["Create Poll"](https://github.com/baiyjmatheus/midterm-decision-maker/blob/master/docs/login.png)
 (https://github.com/baiyjmatheus/midterm-decision-maker/blob/master/docs/create.png)
+
 !["Voting"](https://github.com/baiyjmatheus/midterm-decision-maker/blob/master/docs/voting.png)
+
 !["Result"](https://github.com/baiyjmatheus/midterm-decision-maker/blob/master/docs/result.png)
 (https://github.com/baiyjmatheus/midterm-decision-maker/blob/master/docs/mail1.png)
 (https://github.com/baiyjmatheus/midterm-decision-maker/blob/master/docs/mail2.png)
