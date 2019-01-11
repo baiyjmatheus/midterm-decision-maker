@@ -1,6 +1,6 @@
 
-const newOption = function () {
-	let newPollOption =
+var newOption = function () {
+	var newPollOption =
 	`<div class="input-group mb-3 option-box">
   		<span class="input-group-text option-title" id="inputGroup-sizing-default"></span>
 		  <input type="text" class="form-control option-input" placeholder="Option" aria-label="" aria-describedby="basic-addon1">
@@ -12,33 +12,32 @@ const newOption = function () {
 	return newPollOption;
 };
 
-  const updateOptionCount = function () {
+  var updateOptionCount = function () {
 
-  		let optionsArr = $(".option-title").toArray();
-  		let len = optionsArr.length;
-  		let increment = 1;
+  		var optionsArr = $(".option-title").toArray();
+  		var increment = 1;
   		optionsArr.forEach((option) => {
   			$(option).text(`Option ${increment}`)
   			increment++;
   		});
   };
 
-  const addOption = function () {
+  var addOption = function () {
   	$(".add-option").on('click', function(e) {
   		$(".poll-form").append(newOption());
   		updateOptionCount();
   	});
   };
 
-  const deleteOption = function () {
+  var deleteOption = function () {
   	$('section.poll-form').on('click', ".delete-option", function(e) {
-  		let target = $(this).parents('.option-box');
+  		var target = $(this).parents('.option-box');
   		target.remove();
   		updateOptionCount();
   	});
   };
 
-  const submitUserData = function () {
+  var submitUserData = function () {
   	$(".submitbutton").on("click", function(e) {
   		e.preventDefault();
   		var $username = $(".username").val();
@@ -57,23 +56,23 @@ const newOption = function () {
   					$email
   				},
   				success: function() {
-  					console.log("Successfully sent user data")
-            			$error.empty();
+            $error.empty();
   				}
   			})
   			.done(function(data) {
   				if (data === 'done') {
-          			$(".userinfo").fadeOut(function() {
-            			$(".polls").fadeIn();
-        	}) }})
+						$(".userinfo").fadeOut(function() {
+							$(".polls").fadeIn();
+						}) 
+					}
+				});
   		} else {
   			$error.text("Sorry, Please fill out all input fields")
   		}
   	})
   }
 
-// <<<<<<< HEAD
-  const submitPollData = function () {
+  var submitPollData = function () {
   	$('.submit-btn').on('click', function(e) {
   		e.preventDefault()
       var $question = $(".question").val()
@@ -82,17 +81,17 @@ const newOption = function () {
       var flag = true;
   		var options = []
   		$('.option-input').toArray().forEach((option) => {
-  			options.push($(option).val())
+  			options.push($(option).val());
         if (!$(option).val()) {
           flag = false;
         }
-  		})
+  		});
   		// Use class info for option info input fields
-  		var info = []
+  		var info = [];
     $('.option-info').toArray().forEach((info_) => {
       info.push($(info_).val());
-    })
-  		var question = $('.question').val();
+    });
+  	var question = $('.question').val();
     if ($options && $question && flag) {
   		$.ajax({
   			url:'/polls',
@@ -108,20 +107,20 @@ const newOption = function () {
   			}
   		})
   		.done(function(data) {
-        const id = data;
+        var id = data;
         if (data !== null) {
           window.location = `/polls/${id}/admin`;
         }
   		})
     } else {
-        $error.text("Sorry, Please fill out all input fields")
+        $error.text("Sorry, Please fill out all input fields");
       }
-  	})
+  	});
   }
 
 
 
-  const showDeleteButtons = function () {
+  var showDeleteButtons = function () {
   	$(document).on('click', '.delete-option, .add-option', function() {
   		var n = $('.delete-option').length;
   		console.log(n);
