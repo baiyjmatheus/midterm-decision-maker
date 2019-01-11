@@ -1,4 +1,3 @@
-"use strict";
 const mailgunConfig = require('./config');
 const express = require('express');
 const router  = express.Router();
@@ -16,7 +15,7 @@ module.exports = (knex) => {
     knex('polls')
     .returning('id')
     .insert({id: poll_id, question: question, type: 1, creator_id: user_id})
-    .then(function(newId) {
+    .then((newId) => {
       poll_id = newId;
       options.forEach((option, index) => {
         knex('options')
@@ -26,23 +25,16 @@ module.exports = (knex) => {
     })
     .then(() => {
       getEmailFromPollId(poll_id[0]).then((email) => {
-        console.log(email)
           getNameFromUserId(user_id).then((name) => {
-            console.log(email)
-          var data = {
+          let data = {
             from: 'finest-devs@hotmail.com',
             to: email[0].email,
             subject: `Links to your latest poll titled: ${question}`,
-            text: `Hi ${name[0].name}! \n
-  Here's your administrative link: localhost:8080/polls/${poll_id[0]}/admin \n
-  Here's the link to send to your voters: localhost:8080/polls/${poll_id[0]} \n\n
-  Brought to you by the finest devs at Finest Devs Corp`
-        };
-        mailgun.messages().send(data, function (error, body) {
-          console.log(body);
-          })
-        })
-    })
+            text: `Hi ${name[0].name}!\nHere's your administrative link: localhost:8080/polls/${poll_id[0]}/admin\nHere's the link to send  to your voters: localhost:8080/polls/${poll_id[0]}\n\nBrought to you by the finest devs at Finest Devs Corp`
+          };
+          mailgun.messages().send(data);
+      });
+    });
       res.send(poll_id);
     });
   });
@@ -106,25 +98,19 @@ module.exports = (knex) => {
     let question = req.body.question;
     let descriptionsOptions = req.body.descriptionsOptions
     let pollId = req.body.pollId
-    console.log(pollId)
     let emailMsg = "";
     for (let option in descriptionsOptions) {
       emailMsg += "\n" + option + ": " + descriptionsOptions[option] + " points" + "\n"
     }
     getEmailFromPollId(pollId).then((email) => {
       getNameFromEmail(email[0].email).then((name) => {
-        var data = {
+        let data = {
           from: 'finest-devs@hotmail.com',
           to: email[0].email,
           subject: `Results to your question: ${question}`,
-          text: `Hi ${name[0].name}! \n
-The votes are in, here are the final scores to your question: ${question} \n
-${emailMsg} \n\n
-Brought to you by the finest devs at Finest Devs Corp`
+          text: `Hi ${name[0].name}! \nThe votes are in, here are the final scores to your question: ${question}\n${emailMsg}\n\nBrought to you by the finest devs at Finest Devs Corp`
         };
-        mailgun.messages().send(data, function (error, body) {
-          console.log(body);
-        });
+        mailgun.messages().send(data);
       })
     })
   })
@@ -163,7 +149,7 @@ Brought to you by the finest devs at Finest Devs Corp`
         question,
         options
       }
-      console.log(templatedVars);
+
       res.render("voting-poll", templatedVars);
     });
 
@@ -174,8 +160,6 @@ Brought to you by the finest devs at Finest Devs Corp`
     // Set ranks for each option
     const userId = req.session.id;
     const pollId = req.params.poll_id;
-    console.log("poll id", pollId)
-    console.log("params", req.params)
     const {options} = req.body;
     const ranks = [];
 
@@ -186,36 +170,25 @@ Brought to you by the finest devs at Finest Devs Corp`
       getNameFromUserId(userId).then((name) => {
         getNameFromEmail(email[0].email).then((nameCreator) => {
           getQuestionByPollId(pollId).then((question) => {
-            console.log("email", email[0].email)
-            var data = {
+            let data = {
               from: 'finest-devs@hotmail.com',
               to: email[0].email,
               subject: `Results to your question: ${question[0].question}`,
-              text: `Hi ${nameCreator[0].name}! \n
-  ${name[0].name} has voted on your question: ${question[0].question} \n
-  You can revist your poll from the following links: \n
-  Here's your administrative link: localhost:8080/polls/${pollId}/admin \n
-  Here's the link to send to your voters: localhost:8080/polls/${pollId}  \n\n
-  Brought to you by the finest devs at Finest Devs Corp`
+              text: `Hi ${nameCreator[0].name}!\n${name[0].name} has voted on your question: ${question[0].question}\nYou can revist your poll from the following links:\nHere's your administrative link: localhost:8080/polls/${pollId}/admin\nHere's the link to send to your voters: localhost:8080/polls/${pollId}\n\nBrought to you by the finest devs at Finest Devs Corp`
             };
-            mailgun.messages().send(data, function (error, body) {
-              console.log(body);
-            });
+            mailgun.messages().send(data);
           })
         })        
       })
-    })
-    // Sent user choices to database
-    ranks.forEach((rank, i) => {
-      knex('users_choices')
-      .insert({user_id: userId, option_id: options[i].id, rank: rank})
-      .then(() => {
-
-        console.log("sucessfully inserted to users_choices");
-      });
     });
 
+    // Sent user choices to database
+    ranks.forEach((rank, i) => {
+      knex('users_choices').insert({user_id: userId, option_id: options[i].id, rank: rank})
+      .then(() => {});
+    });
 
+    // Return thank you message
     res.send('<p style="font-family: Helvetica; font-size: 6vw;">Thank you for voting</p><img src="/images/qsmile.png" width="30%">');
   });
 
