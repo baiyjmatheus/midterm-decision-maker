@@ -4,15 +4,15 @@ Decision maker application that calculates options using the Borda Algorithm.
 
 ## Final Product
 
-!["Create Poll"](https://github.com/baiyjmatheus/midterm-decision-maker/blob/master/docs/login.png)
-(https://github.com/baiyjmatheus/midterm-decision-maker/blob/master/docs/create.png)
+!["Login"](https://github.com/baiyjmatheus/midterm-decision-maker/blob/master/docs/login.png)
+!["Create"](https://github.com/baiyjmatheus/midterm-decision-maker/blob/master/docs/create.png)
 
 !["Voting"](https://github.com/baiyjmatheus/midterm-decision-maker/blob/master/docs/voting.png)
 
 !["Result"](https://github.com/baiyjmatheus/midterm-decision-maker/blob/master/docs/result.png)
-(https://github.com/baiyjmatheus/midterm-decision-maker/blob/master/docs/mail1.png)
-(https://github.com/baiyjmatheus/midterm-decision-maker/blob/master/docs/mail2.png)
-(https://github.com/baiyjmatheus/midterm-decision-maker/blob/master/docs/mail3.png)
+!["Mail1"](https://github.com/baiyjmatheus/midterm-decision-maker/blob/master/docs/mail1.png)
+!["Mail2"](https://github.com/baiyjmatheus/midterm-decision-maker/blob/master/docs/mail2.png)
+!["Mail3"](https://github.com/baiyjmatheus/midterm-decision-maker/blob/master/docs/mail3.png)
 
 ## Dependencies
   - Node.js
