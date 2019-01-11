@@ -22,7 +22,7 @@ $(document).ready(function() {
     var $error = $(".error");
     var email_regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
     if (!email_regex.test($email) && $email) {
-      $error.html("Sorry, Please enter a valid email address")
+      $error.html("Sorry, Please enter a valid email address");
     }
     else if ($username && $email) {
 		$.ajax({
@@ -45,7 +45,7 @@ $(document).ready(function() {
       }
     });
     } else {
-      $error.html("Sorry, Please fill out all input fields")
+      $error.html("Sorry, Please fill out all input fields");
     }
   });
 
@@ -82,10 +82,7 @@ $(document).ready(function() {
     });
   });
 
-
-  $( "li" ).tooltip({
+  $("li").tooltip({
     position: { my: "left+15 center", at: "right center" }
   });
-
-
 });
